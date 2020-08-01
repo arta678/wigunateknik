@@ -272,10 +272,9 @@ $(document).on('click','#hapus',function(e){
     }
 });
 
+    
 
-// $("#hargabeli").inputFilter(function(value) {
-//       return /^\d*$/.test(value); });
-
+    // TAMBAH
     var hargabeli = document.getElementById('hargabeli');
     hargabeli.addEventListener('keyup', function(e){
       hargabeli.value = formatRupiah(this.value, '');
@@ -285,7 +284,19 @@ $(document).on('click','#hapus',function(e){
     hargajual.addEventListener('keyup', function(e){
       hargajual.value = formatRupiah(this.value, '');
     });
-    
+
+
+    // EDIT
+    var hargabeliedit = document.getElementById('hargabeliedit');
+    hargabeliedit.addEventListener('keyup', function(e){
+      hargabeliedit.value = formatRupiah(this.value, '');
+    });
+
+    var hargajualedit = document.getElementById('hargajualedit');
+    hargajualedit.addEventListener('keyup', function(e){
+      hargajualedit.value = formatRupiah(this.value, '');
+    });
+
     function formatRupiah(angka, prefix){
       var number_string = angka.replace(/[^,\d]/g, '').toString(),
       split       = number_string.split(','),

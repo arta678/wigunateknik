@@ -96,6 +96,10 @@ function rupiah($uang){
 	$rupiah = number_format($uang,0,',','.');
 	return "Rp. ".$rupiah;
 }
+function rupiahTanpaRp($uang){
+  $rupiah = number_format($uang,0,',','.');
+  return $rupiah;
+}
 
 function stringToInt($string){
 	$bar = (float) $string;

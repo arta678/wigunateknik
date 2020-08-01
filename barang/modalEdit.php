@@ -16,11 +16,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="hargabeli">Harga Beli</label>
-                                <input class="form-control" placeholder="harga beli" id="hargabeli" name="hargabeli" value="<?= $data['hargabeli']?>" required>
+                                <input class="form-control" placeholder="Harga Beli" id="hargabeliedit" name="hargabeli" value="<?= rupiahTanpaRp($data['hargabeli'])?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="hargajual">Harga Jual</label>
-                                <input class="form-control" placeholder="harga jual" id="hargajual" name="hargajual" value="<?= $data['hargajual']?>" required>
+                                <input class="form-control" placeholder="Harga Jual" id="hargajualedit" name="hargajual" value="<?= rupiahTanpaRp($data['hargajual'])?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="stokbarang">Stok Barang</label>
