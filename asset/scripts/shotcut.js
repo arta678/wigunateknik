@@ -5,15 +5,15 @@ $( document ).on( 'keydown', function ( e ) {
 		inputcari.focus(); 
 	}
 	if ( e.keyCode === 36 ) { 
-		window.location.replace('http://localhost/wiguna/dashboard');
+		window.location.replace('http://localhost/wigunateknik/dashboard');
 	}
 	if ( e.keyCode === 33 ) { 
-		window.location.replace('http://localhost/wiguna/barang');
+		window.location.replace('http://localhost/wigunateknik/barang');
 	}
 	if ( e.keyCode === 34 ) { 
-		window.location.replace('http://localhost/wiguna/transaksi');
+		window.location.replace('http://localhost/wigunateknik/transaksi');
 	}
 	if ( e.keyCode === 35 ) { 
-		window.location.replace('http://localhost/wiguna/keluar');
+		window.location.replace('http://localhost/wigunateknik/keluar');
 	}
 });

@@ -39,10 +39,10 @@
             <li>
                 <a href="<?= url('keluar')?>"><i class="fa fas fa-cart-arrow-down fa-fw" style="font-size: 25px;"></i> <strong>Barang Keluar</strong></a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="<?= url('masuk')?>"><i class="fa fas fa-truck fa-fw" style="font-size: 25px;"></i> <strong>Barang Masuk</strong></a>
-            </li> -->
-             <li>
+            </li>
+             <!-- <li>
                 <a href="#"><i class="fa fas fa-chart-pie fa-fw" style="font-size: 25px;"></i> <strong>Laporan</strong></a>
             </li>
             <li>
@@ -53,7 +53,7 @@
             </li>
             <li>
                 <a href="<?= url('customer')?>"><i class="fa fas fa-users fa-fw" style="font-size: 25px;"></i> <strong>Customer</strong></a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>
