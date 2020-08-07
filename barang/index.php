@@ -8,7 +8,7 @@ $databarang = query("select * from tbbarang INNER JOIN tbkategori
 $sql  = "SELECT COUNT(*) AS jumlah FROM tbbarang";
 $jumlahBarang = mysqli_fetch_assoc(mysqli_query($conn,$sql));
 $jumlahBarang = $jumlahBarang['jumlah'];
-
+$cari = "cari";
 if(isset($_GET['cari'])){
     $cari = $_GET['cari'];
     $databarang = query("select * from tbbarang INNER JOIN tbkategori
@@ -16,6 +16,7 @@ if(isset($_GET['cari'])){
 }else{
     $cari = "nol";
 }
+
 if(isset($_GET['filter'])){
     $filter = $_GET['filter'];
     $databarang = query("select * from tbbarang INNER JOIN tbkategori
@@ -87,7 +88,9 @@ if(isset($_GET['filter'])){
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <?php foreach( $databarang as $data ) : ?>
+
                                             <tr class="odd gradeX">
                                                 <td><input type="checkbox" class="checkbox"  name='delete[]' value="<?= $data['idbarang'] ?>" form="formmulti" /></td>
                                                 <td > 
@@ -179,7 +182,9 @@ if(isset($_GET['filter'])){
                     $('#modalTambah').modal('hide');
                     document.forms['formaddbarang'].reset();
                     alert(data);
-                    location.reload();
+                    // location.reload();
+                    window.location.href = "../barang/";
+
                 }
             });
         });
@@ -271,8 +276,6 @@ $(document).on('click','#hapus',function(e){
         alert('Batal Menghapus!');
     }
 });
-
-    
 
     // TAMBAH
     var hargabeli = document.getElementById('hargabeli');

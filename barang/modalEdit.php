@@ -1,3 +1,10 @@
+<?php 
+if(isset($_GET['cari'])){
+    $cari = $_GET['cari'];
+}else{
+    $cari = "nol";
+} 
+?>
 <div class="modal modalEditBarang" id="modaledit_<?= $data['idbarang'] ?>" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">

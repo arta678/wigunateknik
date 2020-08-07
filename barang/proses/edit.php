@@ -1,8 +1,8 @@
 <?php 
 include '../../config/config.php';
 $namabarang = $_POST['nama'];
-$hargabeli = $_POST['hargabeli'];
-$hargajual = $_POST['hargajual'];
+$hargabeli = hapusTitik($_POST['hargabeli']);
+$hargajual = hapusTitik($_POST['hargajual']);
 $kategori = $_POST['kategori'];
 $stokbarang =$_POST['stokbarang'];
 $idbarang =$_POST['idbarang'];
