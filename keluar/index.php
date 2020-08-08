@@ -101,16 +101,16 @@ if(isset($_GET['cari'])){
                             </div> 
 
                             <div class="form-group ">
-                                <input type="text" class="form-control" name="kategori" id="kategori" disabled="" placeholder="Kategori" >
+                                <input type="hidden" class="form-control" name="kategori" id="kategori" disabled="" placeholder="Kategori" >
                             </div>
                             <div class="form-group ">
-                                <input type="text" class="form-control" name="namabarang" id="namabarang" disabled="" placeholder="Nama Barang">
+                                <input type="hidden" class="form-control" name="namabarang" id="namabarang" disabled="" placeholder="Nama Barang">
                             </div>
                             <div class="form-group ">
-                                <input type="text" class="form-control" name="harga" id="harga"  disabled="" placeholder="Harga Barang">
+                                <input type="hidden" class="form-control" name="harga" id="harga"  disabled="" placeholder="Harga Barang">
                             </div>
                             <div class="form-group ">
-                                <input type="text" class="form-control" name="stok" id="stok"  disabled="" placeholder="Stok Barang">
+                                <input type="hidden" class="form-control" name="stok" id="stok"  disabled="" placeholder="Stok Barang">
                             </div>
                             <div class="form-group ">
                                 <input type="hidden" class="form-control" name="modal" id="modal"  disabled="" placeholder="Harga Modal">

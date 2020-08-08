@@ -25,7 +25,7 @@ if (isset($_POST['status'])) {
 		$total = $_POST["total"][$key];
 		$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 		VALUES
-		(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}','$total','$customer','$status')
+		(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}','$total','$customer',null,'$status')
 		";
 		
 		$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
@@ -44,7 +44,7 @@ if (isset($_POST['status'])) {
 		$total = $_POST["total"][$key];
 		$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 		VALUES
-		(null,'$idtransaksi', '$sampah','$harga', '{$_POST['jumlah'][$key]}','$total',null,'$status')
+		(null,'$idtransaksi', '$sampah','$harga', '{$_POST['jumlah'][$key]}','$total',null,null,'$status')
 		";
 		
 		$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;

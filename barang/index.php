@@ -163,9 +163,6 @@ if(isset($_GET['filter'])){
             $('.datakategori').load(data);
         };
 
-
-
-
         $('#sel_kategori').select2({
             theme: "bootstrap",
             width: '100%'

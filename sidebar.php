@@ -28,19 +28,20 @@
                 <a href="<?= url('dashboard')?>"><i class="fa fas fa-home fa-fw" style="font-size: 25px;"></i><strong> Dashboard</strong></a>
             </li>
             <li>
-                <a href="<?= url('barang')?>"><i class="fa fas fa-database fa-fw " style="font-size: 25px;"></i> <strong>Data Barang</strong></a>
+                <a href="<?= url('barang')?>"><i class="fa fas fa-database fa-fw " style="font-size: 25px;"></i> <strong>Barang</strong></a>
             </li>
             <li>
-                <a href="<?= url('kategori')?>"><i class="fa fas fa-database fa-fw " style="font-size: 25px;"></i> <strong>Data Kategori</strong></a>
+                <a href="<?= url('kategori')?>"><i class="fa fas fa-database fa-fw " style="font-size: 25px;"></i> <strong>Kategori</strong></a>
+            </li>
+            
+            <li>
+                <a href="<?= url('keluar')?>"><i class="fa fas fa-cart-arrow-down fa-fw" style="font-size: 25px;"></i> <strong>*Barang Keluar*</strong></a>
+            </li>
+            <li>
+                <a href="<?= url('masuk')?>"><i class="fa fas fa-truck fa-fw" style="font-size: 25px;"></i> <strong>*Barang Masuk*</strong></a>
             </li>
             <li>
                 <a href="<?= url('transaksi')?>"><i class="fa fas fa-history fa-fw" style="font-size: 25px;"></i> <strong>Transaksi</strong></a>
-            </li>
-            <li>
-                <a href="<?= url('keluar')?>"><i class="fa fas fa-cart-arrow-down fa-fw" style="font-size: 25px;"></i> <strong>Barang Keluar</strong></a>
-            </li>
-            <li>
-                <a href="<?= url('masuk')?>"><i class="fa fas fa-truck fa-fw" style="font-size: 25px;"></i> <strong>Barang Masuk</strong></a>
             </li>
              <!-- <li>
                 <a href="#"><i class="fa fas fa-chart-pie fa-fw" style="font-size: 25px;"></i> <strong>Laporan</strong></a>
