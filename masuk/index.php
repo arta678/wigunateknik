@@ -44,6 +44,7 @@ if(isset($_GET['cari'])){
                     <h1><strong></strong></h1>
                 </div>
             </div>
+            <?php include 'modalAdd.php'; ?>
             <div class="row">
                 <div class="col-lg-4 ">
                     <div class="panel panel-default ">
@@ -75,7 +76,7 @@ if(isset($_GET['cari'])){
                                     <?php 
                                     $input =    "SELECT * FROM tbbarang INNER JOIN tbkategori
                                     ON tbbarang.kategori = tbkategori.idkategori 
-                                    WHERE stokbarang <> 0";
+                                    ";
                                     $hasil = mysqli_query($conn, $input);
 
                                     while ( $row = mysqli_fetch_array($hasil) ) { ?>
@@ -90,107 +91,115 @@ if(isset($_GET['cari'])){
                                 <audio id="song">
                                     <source src="../asset/sound/popup.mp3" type="audio/mpeg">
                                     </audio>
+                              <div class="form-group ">
+                               <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled>Masukkan <i class="fa fas fa-arrow-right fa-fw"></i>
+                               </button>
+                               <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#modalTambah" title="Tambah Data">Tambah Barang <i class="fa fas fa-plus fa-fw"></i>
+                               </button>    
+                           </div>
 
-                                    <div class="form-group ">
-                                        <button type="button" class="btn btn-primary" id="tambahBarang">Tambah <i class="fa fas fa-plus fa-fw"></i></button>
-                                        <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled>Masukkan <i class="fa fas fa-arrow-right fa-fw"></i></button>
-                                    </div>
-
-                                    <div class="form-group ">
-                                        <input type="hidden" class="form-control" name="kategori" id="kategori" disabled="" placeholder="Kategori" >
-                                    </div>
-                                    <div class="form-group ">
-                                        <input type="hidden" class="form-control" name="namabarang" id="namabarang" disabled="" placeholder="Nama Barang">
-                                    </div>
-                                    <div class="form-group ">
-                                        <input type="hidden" class="form-control" name="harga" id="harga"  disabled="" placeholder="Harga Barang">
-                                    </div>
-                                    <div class="form-group ">
-                                        <input type="hidden" class="form-control" name="stok" id="stok"  disabled="" placeholder="Stok Barang">
-                                    </div>
-                                    <div class="form-group ">
-                                        <input type="hidden" class="form-control" name="modal" id="modal"  disabled="" placeholder="Harga Modal">
-                                    </div>
-
-
-
-                                </div>
-                            </div>
+                           <div class="form-group ">
+                            <input type="hidden" class="form-control" name="kategori" id="kategori" disabled="" placeholder="Kategori" >
                         </div>
-                        <div class="col-lg-8">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <form action="proses/add.php" method="POST" id="formaddbarangmasuk"></form>
-                                    <table  class="table col-md-12 table-sm table-bordered  text-center"  >
-                                        <thead class="text-left">
-                                            <tr>   
-                                                <th width="45px">Q</th>
-                                                <th width="200px">Barang </th>
-                                                <th>Kategori</th>
-                                                <th>Stok Barang</th>
-                                                <th width="10px">Hapus</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class=" text-left" id="tbody">
-                                        </tbody>
-                                    </table>
-                                    <button type="submit" class="btn btn-success" name="simpan" form="formaddbarangmasuk"  disabled="disabled" id="simpan"><i class="fa fas fa-save" ></i> Simpan</button>
-                                </div>
-                            </div>
+                        <div class="form-group ">
+                            <input type="hidden" class="form-control" name="namabarang" id="namabarang" disabled="" placeholder="Nama Barang">
+                        </div>
+                        <div class="form-group ">
+                            <input type="hidden" class="form-+control" name="harga" id="harga"  disabled="" placeholder="Harga Barang">
+                        </div>
+                        <div class="form-group ">
+                            <input type="hidden" class="form-control" name="stok" id="stok"  disabled="" placeholder="Stok Barang">
+                        </div>
+                        <div class="form-group ">
+                            <input type="hidden" class="form-control" name="modal" id="modal"  disabled="" placeholder="Harga Modal">
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="proses/add.php" method="POST" id="formaddbarangmasuk"></form>
+                        <table  class="table col-md-12 table-sm table-bordered  text-center"  >
+                            <thead class="text-left">
+                                <tr>   
+                                    <th width="45px">Q</th>
+                                    <th width="200px">Barang </th>
+                                    <th>Kategori</th>
+                                    <th>Stok Barang</th>
+                                    <th width="10px">Hapus</th>
+                                </tr>
+                            </thead>
+                            <tbody class=" text-left" id="tbody">
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-success" name="simpan" form="formaddbarangmasuk"  disabled="disabled" id="simpan"><i class="fa fas fa-save" ></i> Simpan</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <?php include '../msg.php'; ?>
-        <!-- <script src="../asset/plugins/jquery-1.10.2.js"></script> -->
-        <script type="text/javascript" src="../asset/plugins/jquery-3-5-1.js"></script>
-        <script src="../asset/plugins/bootstrap/bootstrap.min.js"></script>
-        <script src="../asset/plugins/select2/js/select2.min.js"></script> 
-        <script type="text/javascript" src="../asset/scripts/shotcut.js"></script>
-        <script type="text/javascript" src="../asset/scripts/resizewindows.js"></script>
-        <script>
-            var pop = document.getElementById("song");
-            function popup(){
-                pop.play();
-            }
+    </div>
+</div>
+</div>
+<?php include '../msg.php'; ?>
+<script type="text/javascript" src="../asset/plugins/jquery-3-5-1.js"></script>
+<script src="../asset/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="../asset/plugins/select2/js/select2.min.js"></script> 
+<script type="text/javascript" src="../asset/scripts/shotcut.js"></script>
+<script type="text/javascript" src="../asset/scripts/resizewindows.js"></script>
+<script>
+    var pop = document.getElementById("song");
+    function popup(){
+        pop.play();
+    }
 
-            function enableButtonTambah(){
-                var i=document.getElementById("jumlah");
-                var a=document.getElementById("stok");
-                if(i.value==""){
-                    document.getElementById("tambah").disabled=true;
-                }
-                
-                else
-                    document.getElementById("tambah").disabled=false;
+    function enableButtonTambah(){
+        var i=document.getElementById("jumlah");
+        var a=document.getElementById("stok");
+        if(i.value==""){
+            document.getElementById("tambah").disabled=true;
+        }else
+            document.getElementById("tambah").disabled=false;
 
-                $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
-                    $(this).closest(".select2-container").siblings('select:enabled').select2('open');
-                });
-                $('select.select2').on('select2:closing', function (e) {
-                    $(e.target).data("select2").$selection.one('focus focusin', function (e) {
-                        e.stopPropagation();
-                    });
+        $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
+            $(this).closest(".select2-container").siblings('select:enabled').select2('open');
+        });
+        $('select.select2').on('select2:closing', function (e) {
+            $(e.target).data("select2").$selection.one('focus focusin', function (e) {
+                e.stopPropagation();
+            });
+            $('#tambah').focus();
+        });
+    }
 
-                    $('#tambah').focus();
-                });
-            }
+    $(document).ready(function(){
 
-            $(document).ready(function(){
+        loadDataKategori();
+        // membuat popup kategori barang
+        $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
+            $(this).closest(".select2-container").siblings('select:enabled').select2('open');
+        });
+        $('select.select2').on('select2:closing', function (e) {
+            $(e.target).data("select2").$selection.one('focus focusin', function (e) {
+                e.stopPropagation();
+            });
+        });
 
-                $('#supplier').select2({
-                  theme: "bootstrap",
-                  width: '100%',
-                  placeholder: 'Pilih Supplier'
-                });
+        $('#supplier').select2({
+          theme: "bootstrap",
+          width: '100%',
+          placeholder: 'Pilih Supplier'
+      });
 
-                loadSuplier();
-                function loadSuplier(){
-                    var data = "data/supplier.php";
-                    $('.datasupplier').load(data);
-                };
+        $('#modalTambah').on('shown.bs.modal', function() {
+            $('#nama').focus();
+        });
 
+        loadSuplier();
+        function loadSuplier(){
+            var data = "data/supplier.php";
+            $('.datasupplier').load(data);
+        };
                 // $('#jumlah').focus();
                 $("#formaddbarangmasuk").submit(function(e) {
                     e.preventDefault();
@@ -228,6 +237,49 @@ if(isset($_GET['cari'])){
                     placeholder: "Pilih Customer",
                     theme: "bootstrap",
                     width: '100%'
+                });
+
+                function loadDataKategori(){
+                    var data = "data/kategori.php";
+                    $('.datakategori').load(data);
+                };
+
+                $('#sel_kategori').select2({
+                    theme: "bootstrap",
+                    width: '100%'
+                });
+
+                $("#formaddbarang").submit(function(e) {
+                    e.preventDefault();
+                    var databarang = $("#formaddbarang").serialize();
+                    $.ajax({
+                        url: "proses/addBarang.php",
+                        type: "post",
+                        data: databarang,
+                        success: function(data) {
+                            document.forms['formaddbarang'].reset();
+                            alert(data);
+                            loadDataKategori();
+                            $('#modalTambah').modal('hide');
+                            $('#jumlah').focus();
+
+                        }
+                    });
+                });
+                $("#formaddkategori").submit(function(e) {
+                    e.preventDefault();
+                    var databarang = $("#formaddkategori").serialize();
+                    $.ajax({
+                        url: "../kategori/proses/add.php",
+                        type: "post",
+                        data: databarang,
+                        success: function(data) {
+                            $('#modalTambahKategori').modal('hide');
+                            document.forms['formaddkategori'].reset();
+                            alert(data);
+                            loadDataKategori();
+                        }
+                    });
                 });
 
                 function matchCustom(params, data) {
@@ -269,7 +321,6 @@ if(isset($_GET['cari'])){
             });
 
               $('#tambah').click(function (e) {
-
                 var id          = $("#barang").val();
                 var harga       = $("#harga").val();
                 var jumlah      = $("#jumlah").val();
@@ -305,15 +356,6 @@ if(isset($_GET['cari'])){
                     $('#simpan').removeAttr('disabled');
                     $('#barang').val(null).trigger('change');
                     document.getElementById("tambah").disabled=true;
-
-                    // function perkalian(){
-                    //     var total = harga;
-                    //     total = total.replace('Rp.','');
-                    //     harga = parseInt(total);
-                    //     total = harga*jumlah;
-                    //     total = total.toFixed(0);
-                    //     return total;
-                    // }
                 });
 
               $('#tbody').on('click','#del',function(e){

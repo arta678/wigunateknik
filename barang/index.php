@@ -134,13 +134,13 @@ if(isset($_GET['filter'])){
     $(document).ready(function(){
         loadDataKategori();
         $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
-                    $(this).closest(".select2-container").siblings('select:enabled').select2('open');
-                });
-                $('select.select2').on('select2:closing', function (e) {
-                    $(e.target).data("select2").$selection.one('focus focusin', function (e) {
-                        e.stopPropagation();
-                    });
-                });
+            $(this).closest(".select2-container").siblings('select:enabled').select2('open');
+        });
+        $('select.select2').on('select2:closing', function (e) {
+            $(e.target).data("select2").$selection.one('focus focusin', function (e) {
+                e.stopPropagation();
+            });
+        });
 
         $('#modalTambah').on('shown.bs.modal', function() {
             $('#nama').focus();
