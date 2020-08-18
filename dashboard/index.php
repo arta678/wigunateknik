@@ -5,14 +5,14 @@ include "../config/config.php";
 $databarang = query("select * from tbbarang INNER JOIN tbkategori
     ON tbbarang.kategori = tbkategori.idkategori order by idbarang desc limit 10");
 
-$sql  = "SELECT SUM(tbdetailtransaksi.totaltransaksi) as jumlahpenjualan FROM tbtransaksi
+$sql  = "SELECT SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlahpenjualan FROM tbtransaksi
 INNER JOIN tbdetailtransaksi
 ON tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
 INNER JOIN tbbarang
 ON tbdetailtransaksi.idbarang = tbbarang.idbarang
 INNER JOIN tbkategori
 ON tbbarang.kategori = tbkategori.idkategori
-where status = 'lunas' 
+where status = '1' 
 and day(tbtransaksi.tanggal) = day(now())
     and month(tbtransaksi.tanggal) = month(now())
     and year(tbtransaksi.tanggal) = year(now())";

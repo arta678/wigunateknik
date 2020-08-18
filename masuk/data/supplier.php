@@ -21,8 +21,7 @@ include '../../config/config.php';
     $('#supplier').select2({
       theme: "bootstrap",
       width: '100%',
-      placeholder: 'Pilih Supplier',
-      dropdownParent: $('#modalTambah')
+      placeholder: 'Pilih Supplier'
     });
 
     

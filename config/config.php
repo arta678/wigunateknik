@@ -123,7 +123,7 @@ function kodetransaksi(){
     return $kodetransaksi;
 }
 
-function tambahStok($idbarang,$jumlah){
+function kurangiStok($idbarang,$jumlah){
 	global $conn;	
 	$sqlStok = "
 	SELECT stokbarang FROM tbbarang 
@@ -138,6 +138,24 @@ function tambahStok($idbarang,$jumlah){
 		";	
 	mysqli_query($conn,$sqlTambahStok);	
 	return $stok;
+
+}
+
+function tambahStok($idbarang,$jumlah){
+  global $conn; 
+  $sqlStok = "
+  SELECT stokbarang FROM tbbarang 
+  WHERE idbarang ='".$idbarang."'
+  ";
+  $hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+  $stok =  $hasil["stokbarang"];
+  $stokAkhir = $stok + $jumlah;
+  $sqlTambahStok = "UPDATE tbbarang SET
+      stokbarang = '".$stokAkhir."'
+      WHERE idbarang = '".$idbarang."'
+    ";  
+  mysqli_query($conn,$sqlTambahStok); 
+  return $stok;
 
 }
 

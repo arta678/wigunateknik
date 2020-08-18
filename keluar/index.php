@@ -276,8 +276,7 @@ if(isset($_GET['cari'])){
                     htm += "<td>" + '<input type="hidden" form="formaddbarangmasuk" name="jumlah[]" value="' + $("#jumlah").val() + '">'+' <input type="hidden" name="idbarang[]" form="formaddbarangmasuk" value="' + $("#barang").val() + '">'+ $("#jumlah").val() +"</td>";
                     htm += "<td>" + '<input type="hidden">'+ $("#namabarang").val() +"</td>";
 
-                    htm += "<td>" + '<input type="hidden" name="harga[]" form="formaddbarangmasuk" value="' + $("#modal").val() + '">'+ $("#kategori").val()+
-                    '<input type="hidden" name="total[]" form="formaddbarangmasuk" value="' + perkalian + '">'
+                    htm += "<td>" + '<input type="hidden" name="harga[]" form="formaddbarangmasuk" value="' + $("#modal").val() + '">'+ $("#kategori").val()
                         +" </td>";
 
                     // htm += "<td>" + '<input type="hidden" name="total[]" form="formaddbarangmasuk" value="' + perkalian + '">'+"</td>";
@@ -350,8 +349,7 @@ if(isset($_GET['cari'])){
                         $("#but_edit").attr("disabled", true);
                     }
                 });
-
-
+                
                 $(".customer").hide();
                 $("#hutang").click(function () {
                     if ($(this).is(":checked")) {

@@ -10,8 +10,8 @@ $berhasil = mysqli_query($conn, $sql);
 
 
 if (!$berhasil) {
-	echo json_encode("Gagal Menambahkan Data");
+	echo json_encode("Gagal");
 }else{
-	echo json_encode("Berhasil Menambahkan Data");
+	echo json_encode("Berhasil");
 }
 ?>

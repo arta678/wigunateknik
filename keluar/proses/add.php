@@ -8,11 +8,10 @@ $tipetransaksi = "Out";
 $idbarang = $_POST["idbarang"];
 $jumlah = $_POST["jumlah"];
 $harga = $_POST["harga"];
-$total = $_POST["total"];
 
 
 if (isset($_POST['status'])) {
-	$status = "hutang";
+	$status = "0";
 	$customer = $_POST['customer'];
 	$sqlTransaksi = "INSERT INTO tbtransaksi
 	VALUES 
@@ -22,17 +21,16 @@ if (isset($_POST['status'])) {
 	foreach ($_POST["idbarang"] as  $key => $sampah) {
 		$jumlah = $_POST["jumlah"][$key];
 		$harga = $_POST["harga"][$key];
-		$total = $_POST["total"][$key];
 		$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 		VALUES
-		(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}','$total','$customer',null,'$status')
+		(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}','$customer',null,'$status')
 		";
 		
 		$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-		tambahStok($sampah,$jumlah);
+		kurangiStok($sampah,$jumlah);
 	}
 } else {
-	$status = "lunas";
+	$status = "1";
 	$sqlTransaksi = "INSERT INTO tbtransaksi
 	VALUES 
 	('$idtransaksi', '$tanggal', '$tipetransaksi')";
@@ -41,14 +39,14 @@ if (isset($_POST['status'])) {
 	foreach ($_POST["idbarang"] as  $key => $sampah) {
 		$jumlah = $_POST["jumlah"][$key];
 		$harga = $_POST["harga"][$key];
-		$total = $_POST["total"][$key];
+		// $total = $_POST["total"][$key];
 		$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 		VALUES
-		(null,'$idtransaksi', '$sampah','$harga', '{$_POST['jumlah'][$key]}','$total',null,null,'$status')
+		(null,'$idtransaksi', '$sampah','$harga', '{$_POST['jumlah'][$key]}',null,null,'$status')
 		";
 		
 		$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-		tambahStok($sampah,$jumlah);
+		kurangiStok($sampah,$jumlah);
 	}
 }
 
