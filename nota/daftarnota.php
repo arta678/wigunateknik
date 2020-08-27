@@ -1,14 +1,17 @@
 <?php 
 $judul = "Nota";
 include "../config/config.php";
+$namasuplier = $_GET['namasupplier'];
 $databarang = query("
-    SELECT  tbsuplier.namasuplier as nama, SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlah FROM tbtransaksi
+    SELECT tbtransaksi.tanggal as tanggal, tbtransaksi.idtransaksi as idnota, SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlah, tbtransaksi.status as status FROM tbtransaksi
     INNER JOIN tbdetailtransaksi
     on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
     INNER JOIN tbsuplier
     ON tbdetailtransaksi.idsuplier = tbsuplier.idsuplier
-    WHERE tbtransaksi.tipetransaksi = 'In'
-    GROUP BY tbsuplier.namasuplier");
+    WHERE tbsuplier.namasuplier = '$namasuplier'
+    AND tbtransaksi.tipetransaksi = 'In'
+    GROUP BY tbtransaksi.idtransaksi
+    ORDER BY tbtransaksi.idtransaksi DESC");
 
 if(isset($_GET['cari'])){
     $cari = $_GET['cari'];
@@ -44,27 +47,33 @@ if(isset($_GET['cari'])){
             </div>
             <div class="row">
                 <div class="col-lg-8">
+
                     <div class="panel panel-default">
+
                         <div class="panel-body">
-                            <h3><strong>Daftar Nota</strong></h3>
+                            <h3><strong><?= $_GET["namasupplier"] ?></strong></h3>
+
                             <div class="table-responsive kontentabel">
-                                <table class="table  table-bordered" id="tabelbarang">
+                                
+                                <table class="table table-bordered" id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
-                                            <th class="text-center" width="3%">No</th>
-                                            <th class="text-center">Nama Suplier</th>
-                                            <th class="text-center">Total Hutang</th>
+                                            <th class="text-left" width="3%">No</th>
+                                            <th class="text-left">Tanggal</th>
+                                            <th class="text-left">Jumlah</th>
+                                            <th class="text-left">Foto</th>
+                                            <th class="text-left">Detail</th>
                                         </tr>
                                     </thead>
-                                    <tbody  class="odd gradeX"  >
+                                    <tbody>
                                         <?php $i = 1; ?>
                                         <?php foreach( $databarang as $data ) : ?>
-                                            <tr>
-                                                <td class="text-center"><?= $i?></td>
-                                                <td><a href="<?= url('nota/daftarnota.php?namasupplier='.$data["nama"].'')?>"><?= $data['nama'] ?></td>
-                                                
-                                                <!-- <td ><strong><?= $data['nama'] ?></strong></td> -->
+                                            <tr class="odd gradeX" style="background-color: #BFFFA5;">
+                                                <td class="text-left"><?= $i?></td>
+                                                <td ><strong><?= $data['tanggal'] ?></strong></td>
                                                 <td class="text-left"><strong><?= rupiah($data['jumlah']) ?></strong></td>
+                                                <td ><strong>gambar</strong></td>
+                                                <td><a href="<?= url('nota/detailnota.php?idnota='.$data['idnota'].'')?>">Lihat</td>
                                             </tr>
                                             <?php $i++ ?>
                                         <?php endforeach; ?>

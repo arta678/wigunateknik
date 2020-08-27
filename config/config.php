@@ -92,6 +92,9 @@ function upload() {
   return $namaFileBaru;
 }
 
+
+
+
 function rupiah($uang){
 	$rupiah = number_format($uang,0,',','.');
 	return "Rp. ".$rupiah;

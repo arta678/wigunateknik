@@ -79,12 +79,12 @@ if(isset($_GET['filter'])){
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
                                             <th width="3%"><input type="checkbox" id="select_all" value=""  /></th>
-                                            <th class="text-center">Nama Barang</th>
-                                            <th class="text-center">Harga Jual</th>
-                                            <th class="text-center">Kode</th>
-                                            <th class="text-center">Stok</th>
-                                            <th class="text-center">Kategori</th>
-                                            <th class="text-center" width="145px">Aksi</th>
+                                            <th class="text-left">Nama Barang</th>
+                                            <th class="text-left">Harga Jual</th>
+                                            <th class="text-left">Kode</th>
+                                            <th class="text-left">Stok</th>
+                                            <th class="text-left">Kategori</th>
+                                            <th class="text-left" width="145px">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -97,17 +97,17 @@ if(isset($_GET['filter'])){
                                                     <strong data-toggle="modal" data-target="#modaledit_<?= $data['idbarang'] ?>"><?= $data['namabarang'] ?></strong>
                                                 </td>
                                             </td>
-                                            <td class="text-center"><strong><?= rupiah($data['hargajual']) ?></strong></td>
-                                            <td class="text-center"><?= toHuruf($data['hargabeli'])?>
-                                            <td class="text-center"><strong><?= $data['stokbarang'] ?></strong></td>
+                                            <td class="text-left"><strong><?= rupiah($data['hargajual']) ?></strong></td>
+                                            <td class="text-left"><?= toHuruf($data['hargabeli'])?>
+                                            <td class="text-left"><strong><?= $data['stokbarang'] ?></strong></td>
 
-                                            <td class="text-center">
+                                            <td class="text-left">
                                                 <a href="<?= url('barang/?filter='.$data["namakategori"].'')?>"><?= $data['namakategori'] ?>
                                                 </a>
                                             </td>
 
 
-                                            <td class="text-center">
+                                            <td class="text-left">
                                                     <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="hapus" data-id="<?= $data['idbarang'] ?>">Delete</button>
                                             
                                             </td>

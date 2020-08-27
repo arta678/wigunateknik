@@ -285,7 +285,14 @@ if(isset($_GET['cari'])){
                     htm += "<td>" + '<button id="del" class="btn btn-danger btn-sm">X</button>'+ "</td>";
                     htm += "</tr>";
 
-                    $("#tbody").append(htm);
+
+                    if (jumlah < stok) {
+                        $("#tbody").append(htm);
+                    }else{
+                        alert("stok kuran!");
+                    }
+
+                    // $("#tbody").append(htm);
                     $('#jumlah').val('');
                     $('#kategori').val('');
                     $('#namabarang').val('');

@@ -71,10 +71,6 @@ if(isset($_GET['cari'])){
                                 <input type="number" class="form-control" name="jumlah[]" onclick="this.select()" id="jumlah" onKeyUp="enableButtonTambah()" >
                             </div>
                             <div class="form-group databarang">
-
-    
-
-
                             </div>
                             <audio id="song">
                                 <source src="../asset/sound/popup.mp3" type="audio/mpeg">
@@ -84,6 +80,22 @@ if(isset($_GET['cari'])){
                                     </button>
                                     <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#modalTambah" title="Tambah Data">Tambah Barang <i class="fa fas fa-plus fa-fw"></i>
                                     </button>    
+                                </div>
+                                <div class="form-group ">
+                                    <label for="diskon1">Diskon 1</label>
+                                    <input type="input" class="form-control" name="diskon1" value="0" form="formaddbarangmasuk">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="diskon2">Diskon 2</label>
+                                    <input type="input" class="form-control" name="diskon2" value="0" form="formaddbarangmasuk">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="diskon3">Diskon 3</label>
+                                    <input type="input" class="form-control" name="diskon3" value="0" form="formaddbarangmasuk">
+                                </div>
+                                <div class="form-group ">
+                                    <input type="checkbox" id="ppn" name="ppn" form="formaddbarangmasuk">
+                                    <label for="ppn">Hutang</label><br>
                                 </div>
 
                                 <div class="form-group ">
