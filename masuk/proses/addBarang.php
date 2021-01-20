@@ -1,11 +1,11 @@
 <?php 
 include '../../config/config.php';
 $namabarang = $_POST['nama'];
-$hargabeli = hapusTitik($_POST['hargabeli']) ;
-$hargajual = hapusTitik($_POST['hargajual']) ;
+// $hargabeli = hapusTitik($_POST['hargabeli']) ;
+// $hargajual = hapusTitik($_POST['hargajual']) ;
 $kategori = $_POST['kategoriTambah'];
 
-$sql= "INSERT INTO tbbarang values(null,'$namabarang','$hargabeli','$hargajual','$kategori',0)";
+$sql= "INSERT INTO tbbarang values(null,'$namabarang',null,null,'$kategori',0)";
 $berhasil = mysqli_query($conn, $sql);
 
 

@@ -9,14 +9,14 @@
               <h5 for="nama">Nama Barang</h5>
               <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Nama" id="nama" name="nama" autofocus required form="formaddbarang">
             </div>
-            <div class="form-group">
+<!--             <div class="form-group">
               <h5 for="hargabeli">Harga Beli</h5>
               <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="text" class="form-control" placeholder="Harga beli" id="hargabeli" name="hargabeli" required form="formaddbarang">
             </div>
             <div class="form-group">
               <h5 for="hargajual">Harga Jual</h5>
               <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="text" class="form-control" placeholder="Harga jual" id="hargajual" name="hargajual" required form="formaddbarang">
-            </div>
+            </div> -->
 
             <div class="form-group datakategori">
 

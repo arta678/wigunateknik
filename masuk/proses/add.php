@@ -9,9 +9,6 @@ $idsatuan = $_POST["idsatuan"];
 $harga = $_POST["harga"];
 $supplier = $_POST["supplier"];
 
-
-
-
 if (isset($_POST['lunas'])) {
 	if (isset($_POST['ppn'])) {
 		$status = "1";
@@ -20,7 +17,6 @@ if (isset($_POST['lunas'])) {
 		VALUES 
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
-
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
 			$jumlah = $_POST["jumlah"][$key];
 			$harga = $_POST["harga"][$key];
@@ -31,9 +27,9 @@ if (isset($_POST['lunas'])) {
 			VALUES
 			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
 			";
-
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-
+			tambahStok($sampah,$jumlah);
+			ubahHargaBarang($sampah, $harga);
 		}
 	}else{
 		$status = "1";
@@ -42,7 +38,6 @@ if (isset($_POST['lunas'])) {
 		VALUES 
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
-
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
 			$jumlah = $_POST["jumlah"][$key];
 			$harga = $_POST["harga"][$key];
@@ -53,9 +48,9 @@ if (isset($_POST['lunas'])) {
 			VALUES
 			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
 			";
-
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-
+			tambahStok($sampah,$jumlah);
+			ubahHargaBarang($sampah, $harga);
 		}
 
 	}
@@ -68,7 +63,6 @@ if (isset($_POST['lunas'])) {
 		VALUES 
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
-
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
 			$jumlah = $_POST["jumlah"][$key];
 			$harga = $_POST["harga"][$key];
@@ -79,9 +73,9 @@ if (isset($_POST['lunas'])) {
 			VALUES
 			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
 			";
-
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-
+			tambahStok($sampah,$jumlah);
+			ubahHargaBarang($sampah, $harga);
 		}
 	}else{
 		$status = "0";
@@ -90,7 +84,6 @@ if (isset($_POST['lunas'])) {
 		VALUES 
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
-
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
 			$jumlah = $_POST["jumlah"][$key];
 			$harga = $_POST["harga"][$key];
@@ -101,16 +94,13 @@ if (isset($_POST['lunas'])) {
 			VALUES
 			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
 			";
-
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-
+			tambahStok($sampah,$jumlah);
+			ubahHargaBarang($sampah, $harga);
 		}
 	}
 
 }
-
-
-
 
 // if (isset($_POST['lunas'])) {
 // 	if (isset($_POST['ppn'])) {
@@ -120,7 +110,6 @@ if (isset($_POST['lunas'])) {
 // 		VALUES 
 // 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$diskon1','$diskon2','$diskon3','$ppn',null,'$supplier')";
 // 		$transaksi = mysqli_query($conn, $sqlTransaksi);
-
 // 		foreach ($_POST["idbarang"] as  $key => $sampah) {
 // 			$jumlah = $_POST["jumlah"][$key];
 // 			$harga = $_POST["harga"][$key];
@@ -128,7 +117,6 @@ if (isset($_POST['lunas'])) {
 // 			VALUES
 // 			(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}')
 // 			";
-
 // 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
 // 			tambahStok($sampah,$jumlah);
 // 			ubahHargaBarang($sampah, $harga);

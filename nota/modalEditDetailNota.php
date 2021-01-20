@@ -20,16 +20,24 @@ if(isset($_GET['cari'])){
                                 <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="hidden" name="idnota" value="<?= $idnota;?>" form="formEditDetailNota">
                                 <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="hidden" name="idbarang" value="<?= $data['idbarang'];?>" form="formEditDetailNota">
                             </div>
-
+                            <div class="form-group">
+                                <h5 for="hargabeli"><strong>Qty</strong></h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="jumlah" name="jumlah" value="<?= $data['jumlah']?>" required form="formEditDetailNota">
+                            </div>
                             <div class="form-group">
                                 <h5 for="harga"><strong>Harga Modal</strong></h5>
                                 <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Jual" id="harga" name="harga" value="<?= rupiahTanpaRp($data['harga'])?>" required form="formEditDetailNota">
                             </div>
-
                             <div class="form-group">
-                                <h5 for="hargabeli"><strong>Jumlah</strong></h5>
-                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="jumlah" name="jumlah" value="<?= $data['jumlah']?>" required form="formEditDetailNota">
+                                <h5 for="hargabeli"><strong>Diskon 1</strong></h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="diskon1" name="diskon1" value="<?= $data['diskon1']?>" required form="formEditDetailNota">
                             </div>
+                            <div class="form-group">
+                                <h5 for="hargabeli"><strong>Diskon 2</strong></h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="diskon2" name="diskon2" value="<?= $data['diskon2']?>" required form="formEditDetailNota">
+                            </div>
+
+                            
                             
                             
                             <button type="submit" class="btn btn-success btn-edit-barang" form="formEditDetailNota"><strong>Simpan</strong></button>

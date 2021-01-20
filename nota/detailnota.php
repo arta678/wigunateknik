@@ -132,8 +132,8 @@ if(isset($_GET['cari'])){
                                                 <td class="text-left"><strong><?= $data['namasatuan']?></strong></td>
                                                 <!-- <td class="text-left"><strong><?= $data['namakategori'] ?></strong></td> -->
                                                 <td class="text-right"><strong><?= rupiahTanpaRp($data['harga']) ?></strong></td>
-                                                <td class="text-right"><strong><?= $data['diskon1'] ?>%</strong></td>
-                                                <td class="text-right"><strong><?= $data['diskon2'] ?>%</strong></td>
+                                                <td class="text-right"><strong><?= $data['diskon1'] ?></strong></td>
+                                                <td class="text-right"><strong><?= $data['diskon2'] ?></strong></td>
                                                 <td class="text-right"><strong><?= rupiahTanpaRp($data['total']) ?></strong></td>
                                                 <td class="text-center" data-toggle="modal" data-target="#modalEditDetailNota<?= $data['iddetailnota'] ?>"><i class="fa far fa-edit"></i></td>
                                             </tr>
