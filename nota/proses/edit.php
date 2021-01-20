@@ -5,7 +5,7 @@ $hargabeli = hapusTitik($_POST['harga']);
 $jumlah = $_POST['jumlah'];
 $diskon1 = $_POST['diskon1'];
 $diskon2 = $_POST['diskon2'];
-$harga =$_POST['harga'];
+$harga = hapusTitik($_POST['harga']);
 $iddetailnota =$_POST['iddetailnota'];
 $idnota =$_POST['idnota'];
 ubahStokBarang($idbarang, $jumlah, $iddetailnota);
