@@ -30,30 +30,34 @@
             <li>
                 <a href="<?= url('barang')?>"><i class="fa fas fa-database fa-fw " style="font-size: 25px;"></i> <strong>Barang</strong></a>
             </li>
-            <li>
+           <!--  <li>
                 <a href="<?= url('kategori')?>"><i class="fa fas fa-database fa-fw " style="font-size: 25px;"></i> <strong>Kategori</strong></a>
-            </li>
+            </li> -->
             
             <li>
-                <a href="<?= url('keluar')?>"><i class="fa fas fa-cart-arrow-down fa-fw" style="font-size: 25px;"></i> <strong>*Barang Keluar*</strong></a>
+                <a href="<?= url('keluar')?>"><i class="fa fas fa-cart-arrow-down fa-fw" style="font-size: 25px;"></i> <strong><u>Barang Keluar</u></strong></a>
             </li>
             <li>
-                <a href="<?= url('masuk')?>"><i class="fa fas fa-truck fa-fw" style="font-size: 25px;"></i> <strong>*Barang Masuk*</strong></a>
+                <a href="<?= url('masuk')?>"><i class="fa fas fa-truck fa-fw" style="font-size: 25px;"></i> <strong><u>Barang Masuk</u></strong></a>
             </li>
             <li>
                 <a href="<?= url('transaksi')?>"><i class="fa fas fa-history fa-fw" style="font-size: 25px;"></i> <strong>Transaksi</strong></a>
             </li>
-            <!--  <li>
+             <!-- <li>
                 <a href="#"><i class="fa fas fa-chart-pie fa-fw" style="font-size: 25px;"></i> <strong>Laporan</strong></a>
             </li> -->
             <li>
-                <a href="<?= url('nota')?>"><i class="fa fas fa-book fa-fw" style="font-size: 25px;"></i> <strong>Nota</strong></a>
+                <a href="<?= url('nota')?>"><i class="fa fas fa-book fa-fw" style="font-size: 25px;"></i> <strong>Nota Supplier</strong></a>
+            </li>
+            
+            <li>
+                <a href="<?= url('supplier')?>"><i class="fa fas fa-users fa-fw" style="font-size: 25px;"></i> <strong>Supplier</strong></a>
             </li>
             <!-- <li>
-                <a href="<?= url('nota')?>"><i class="fa fas fa-users-cog fa-fw" style="font-size: 25px;"></i> <strong>Pegawai</strong></a>
+                <a href="<?= url('customer')?>"><i class="fa fas fa-user fa-fw" style="font-size: 25px;"></i> <strong>Konsumen</strong></a>
             </li>
             <li>
-                <a href="<?= url('customer')?>"><i class="fa fas fa-users fa-fw" style="font-size: 25px;"></i> <strong>Customer</strong></a>
+                <a href="<?= url('customer')?>"><i class="fa fas fa-user-cog fa-fw" style="font-size: 25px;"></i> <strong>Pegawai</strong></a>
             </li> -->
         </ul>
     </div>

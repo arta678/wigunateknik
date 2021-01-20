@@ -4,55 +4,50 @@ include "../config/config.php";
 $idnota = $_GET["idnota"];
 $databarang = query("
     SELECT
-    tbtransaksi.tanggal as tanggal,
-    tbbarang.namabarang as namabarang,
-    tbkategori.namakategori as namakategori,
-    tbdetailtransaksi.jumlahbarang as jumlah,
-    tbdetailtransaksi.hargabeli as harga,
-    (tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as total,
-    tbsuplier.namasuplier as namasupplier
-    FROM tbtransaksi
-    INNER JOIN tbdetailtransaksi
-    on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
-    INNER JOIN tbbarang
-    ON tbdetailtransaksi.idbarang = tbbarang.idbarang
-    INNER JOIN tbkategori
-    ON tbbarang.kategori = tbkategori.idkategori
-    INNER JOIN tbsuplier
-    ON tbdetailtransaksi.idsuplier = tbsuplier.idsuplier
-    WHERE  tbtransaksi.idtransaksi = '$idnota'");
+        tbdetailtransaksi.iddetailtransksi as iddetailnota,
+        tbdetailtransaksi.idbarang as idbarang,
+        tbtransaksi.tanggal as tanggal,
+        tbbarang.namabarang as namabarang,
+        tbkategori.namakategori as namakategori,
+        tbdetailtransaksi.jumlahbarang as jumlah,
+        tbdetailtransaksi.hargabeli as harga,
+        tbdetailtransaksi.diskon1 as diskon1,
+        tbdetailtransaksi.diskon2 as diskon2,
+        (((tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100)) - (tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100))*tbdetailtransaksi.diskon2/100))*tbdetailtransaksi.jumlahbarang as total,
+        tbsatuan.namasatuan as namasatuan,
+        tbsuplier.namasuplier as namasupplier
+        FROM tbtransaksi
+        INNER JOIN tbdetailtransaksi
+        on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
+        INNER JOIN tbsatuan
+        ON tbdetailtransaksi.idsatuan = tbsatuan.idsatuan
+        INNER JOIN tbbarang
+        ON tbdetailtransaksi.idbarang = tbbarang.idbarang
+        INNER JOIN tbkategori
+        ON tbbarang.kategori = tbkategori.idkategori
+        INNER JOIN tbsuplier
+        ON tbtransaksi.idsuplier = tbsuplier.idsuplier
+        WHERE  tbtransaksi.idtransaksi ='$idnota'");
 
-$total = (" SELECT
-    SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as total
-    FROM tbtransaksi
-    INNER JOIN tbdetailtransaksi
-    on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
-    WHERE  tbtransaksi.idtransaksi = '$idnota'
-    GROUP BY tbtransaksi.idtransaksi");
+$total = (" SELECT 
+SUM((((tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100)) - (tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100))*tbdetailtransaksi.diskon2/100))*tbdetailtransaksi.jumlahbarang) as total, 
+tbtransaksi.ppn as ppn FROM tbtransaksi 
+INNER JOIN tbdetailtransaksi on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi 
+WHERE tbtransaksi.idtransaksi = '$idnota' 
+GROUP BY tbtransaksi.idtransaksi ");
 
-$totalpembelian = mysqli_fetch_assoc(mysqli_query($conn,$total));
-$totalpembelian = $totalpembelian['total'];
+$totaljumlahpembayaran= ("SELECT SUM(jumlahpembayaran) as jumlahpembayaran FROM tbpembayaran
+    WHERE tbpembayaran.idtransaksi='$idnota'");
 
-$angka = 2705000;
-$diskon1 = 20;
-$diskon2 = 0;
-$diskon3 = 0;
-$diskon4 = 0;
+$totaljumlahpembayaran = mysqli_fetch_assoc(mysqli_query($conn,$totaljumlahpembayaran));
+$totaljumlahpembayaran = $totaljumlahpembayaran['jumlahpembayaran'];
 
-$a = $angka-$angka*$diskon1/100;
-$b = $a-$a*$diskon2/100;
-$jumSetelahDiskon = $b-$b*$diskon3/100; 
-
-
-$bb = $angka - $b;
-$cc = $angka - $jumSetelahDiskon;
-
-$jumDis1 = $angka - $a;
-$jumDis2 = $bb-$jumDis1;
-$jumDis3 = $cc - $bb;
-$ppn = $jumSetelahDiskon*0/100;
-$netto = $jumSetelahDiskon+$ppn; 
-
+$detailpembelian = mysqli_fetch_assoc(mysqli_query($conn,$total));
+$totalpembelian = $detailpembelian['total'];
+$ppn = $detailpembelian['ppn'];
+$pajak = $totalpembelian*$ppn/100;
+$ppn = $pajak;
+$netto = $totalpembelian+$ppn; 
 $pembayaran = query("
     SELECT * FROM tbtransaksi
     INNER JOIN tbpembayaran
@@ -85,6 +80,10 @@ if(isset($_GET['cari'])){
 <body>
     <div id="wrapper">
         <?php include '../sidebar.php'; ?>
+        <?php include 'modalAddDetailNota.php'; ?>
+        <?php include 'modalAddBarang.php'; ?>
+        <?php include 'modalTambahPembayaran.php'; ?>
+        <?php include 'modalEditTanggalNota.php'; ?>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -95,93 +94,103 @@ if(isset($_GET['cari'])){
                 <div class="col-lg-8">
 
                     <div class="panel panel-default">
-
                         <div class="panel-body">
-                            <h3><strong><?= $databarang[0]['namasupplier']; ?> (<?= $databarang[0]['tanggal']; ?>)</strong></h3>
-                            <h3><strong></strong></h3>
+                            <h3><strong><?= $databarang[0]['namasupplier']; ?> (<?= $databarang[0]['tanggal']; ?>)</strong> 
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahBarangMasuk" title="Tambah Data"><i class="fa far fa-plus fa-lg"></i></button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEditTanggalNota" title="Tambah Data"><i class="fa far fa-edit fa-lg"></i></button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahPembayaran" title="Tambah Data"><i class="fas fa-dollar-sign fa-lg"></i></button>
+                                <button type="button" class="btn btn-light"  title="Lihat Gambar"><i class="fas fa-camera-retro fa-lg"></i></button>
+
+                            </h3>
 
                             <div class="table-responsive kontentabel">
 
-                                <table class="table table-bordered" id="tabelbarang">
+                                <table class="table" id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
-                                            <th class="text-left" width="3%">Q</th>
-                                            <th class="text-left">Nama Barang</th>
+                                            
+                                            <th class="text-left">Nama</th>
                                             <!-- <th class="text-left">Kategori</th> -->
-                                            <th class="text-left">Harga</th>
-                                            <th class="text-left" width="200px">Jumlah</th>
-                                            <!-- <th class="text-left">Detail</th> -->
+                                            <th class="text-left" width="3%">Qty</th>
+                                            <th class="text-left" >Satuan</th>
+                                            <th class="text-right">Harga</th>
+                                            <th class="text-right" width="3%">Dis1</th>
+                                            <th class="text-right" width="3%">Dis2</th>
+                                            <th class="text-right" width="200px" >Jumlah</th>
+                                            <th class="text-left" width="10px"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $i = 1; ?>
                                         <?php foreach( $databarang as $data ) : ?>
                                             <tr class="odd gradeX">
+                                                
+                                                
+                                                <td ><a href="<?= url('barang/?lihat='.$data["namabarang"].'')?>"><strong><?= $data['namabarang'] ?></strong>
+                                                </a></td>
                                                 <td class="text-left"><strong><?= $data['jumlah'] ?></strong></td>
-                                                <td ><strong><?= $data['namabarang'] ?></strong></td>
+                                                <td class="text-left"><strong><?= $data['namasatuan']?></strong></td>
                                                 <!-- <td class="text-left"><strong><?= $data['namakategori'] ?></strong></td> -->
                                                 <td class="text-right"><strong><?= rupiahTanpaRp($data['harga']) ?></strong></td>
+                                                <td class="text-right"><strong><?= $data['diskon1'] ?>%</strong></td>
+                                                <td class="text-right"><strong><?= $data['diskon2'] ?>%</strong></td>
                                                 <td class="text-right"><strong><?= rupiahTanpaRp($data['total']) ?></strong></td>
+                                                <td class="text-center" data-toggle="modal" data-target="#modalEditDetailNota<?= $data['iddetailnota'] ?>"><i class="fa far fa-edit"></i></td>
                                             </tr>
-                                        <?php endforeach; ?>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3">Jumlah</td>
-                                                <td class="text-right" style="background-color: #00794d; color: white;"  class="text-right"><strong><?= rupiahTanpaRp($totalpembelian) ?></strong></td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3">Discont 1 <strong>(<?= $diskon1 ?>%)</strong></td>
-                                                <td class="text-right" ><strong><?= rupiahTanpaRp($jumDis1) ?></strong></td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3">Discont 2 <strong>(<?= $diskon2 ?>%)</strong></td>
-                                                <td class="text-right" ><strong><?= rupiahTanpaRp($jumDis2) ?></strong></td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3">Discont 3 <strong>(<?= $diskon3 ?>%)</strong></td>
-                                                <td class="text-right"><strong><?= rupiahTanpaRp($jumDis3) ?></strong></td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3"><strong>DPP</strong></strong></td>
-                                                <td class="text-right"><strong><?= rupiahTanpaRp($jumSetelahDiskon) ?></strong></td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3"><strong>PPN</strong></strong></td>
-                                                <td class="text-right"><strong><?= rupiahTanpaRp($ppn) ?></strong></td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                <td class="text-right" colspan="3"><strong>NETTO</strong></strong></td>
-                                                <td class="text-right" style="background-color: #00794d; color: white;"><strong><?= rupiahTanpaRp($netto) ?></strong></td>
-                                            </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <h3><strong>Pembayaran</strong></h3>
-                            <div class="table-responsive kontentabel">
-
-                                <table class="table table-striped table-bordered" id="tabelbarang">
-                                    <thead style="background-color: #00794d; color: white;">
-                                        <tr>
-                                            <!-- <th class="text-left" width="3%">No</th> -->
-                                            <th class="text-left">Tanggal</th>
-                                            <!-- <th class="text-left">Kategori</th> -->
-                                            <th class="text-left" width="200px">Jumlah Bayar</th>
-                                            <!-- <th class="text-left">Jumlah</th> -->
-                                            <!-- <th class="text-left">Detail</th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach( $pembayaran as $data ) : ?>
-                                            <tr class="odd gradeX">
-                                                <td ><strong><?= $data['tanggal'] ?></strong></td>
-                                                <!-- <td class="text-left"><strong><?= $data['namakategori'] ?></strong></td> -->
-                                                <td class="text-right"><strong><?= rupiah($data['jumlahbayar']) ?></strong></td>
-                                            </tr>
+                                            <?php include 'modalEditDetailNota.php'; ?>
                                         <?php endforeach; ?>
                                         <tr class="odd gradeX" >
-                                            <td class="text-right"><strong>Sisa</strong></td>
-                                            <td style="background-color: #00794d; color: white;" class="text-right"><strong><?= rupiah($data['jumlahbayar']) ?></strong></td>
-                                        </td>
+                                            
+                                            <td class="text-right" colspan="6"><strong >JUMLAH</strong></td>
+                                            <td class="text-right"  style="background-color: #00794d; color: white" class="text-right"><?= rupiahTanpaRp($totalpembelian) ?></td>
+                                        </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="text-right" colspan="6"><strong>PPN</strong></strong></td>
+                                                <td class="text-right" style="background-color: #00794d; color: white"><strong><?= rupiahTanpaRp($ppn) ?></strong></td>
                                             </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="text-right" colspan="6" ><strong>TOTAL</strong></strong></td>
+                                                <td class="text-right" style="background-color: #00794d; color: white; font-size: 25px"><strong><?= rupiahTanpaRp($netto) ?></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h3><strong>Pembayaran</strong></h3>
+                                <div class="table-responsive kontentabel">
+
+                                    <table class="table table-striped table-bordered" id="tabelbarang">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th class="text-left" width="3%">No</th> -->
+                                                <th class="text-left">Tanggal</th>
+                                                <!-- <th class="text-left">Kategori</th> -->
+                                                <th class="text-center" width="235px">Jumlah Bayar</th>
+                                                <!-- <th class="text-left">Jumlah</th> -->
+                                                <!-- <th class="text-left">Detail</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach( $pembayaran as $data ) : ?>
+                                                <tr class="odd gradeX">
+                                                    <td ><strong><?= $data['tanggal'] ?></strong></td>
+                                                    <!-- <td class="text-left"><strong><?= $data['namakategori'] ?></strong></td> -->
+                                                    <td class="text-right"><strong><?= rupiahTanpaRp($data['jumlahpembayaran']) ?></strong></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                            <tr class="odd gradeX" >
+                                                <td class="text-right"><strong>Sisa Hutang</strong></td>
+                                                <?php if ($sisapembayaran==0) { ?>
+                                                   <td style="background-color: #00794d; color: white; font-size: 25px" class="text-right " ><strong> Lunas</strong></td>
+                                                <?php }else{ ?>
+                                                    <td style="background-color: #00794d; color: white; font-size: 25px" class="text-right " ><strong>
+                                                    <?= rupiahTanpaRp($sisapembayaran) ?>
+                                                    
+                                                </strong></td>
+
+                                                <?php } ?>
+                                                
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -197,6 +206,113 @@ if(isset($_GET['cari'])){
     <script src="../asset/plugins/select2/js/select2.min.js"></script> 
     <script type="text/javascript" src="../asset/scripts/shotcut.js"></script> 
     <script type="text/javascript" src="../asset/scripts/resizewindows.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // focus pada modal tambahpembayaran
+            $('#modalTambahPembayaran').on('shown.bs.modal', function() {
+                $('#jumlahpembayaran').focus();
+            });
+
+
+            loadBarang();
+            function loadBarang(){
+                var data = "data/barang.php";
+                $('.databarang').load(data);
+                var datasuplier = "data/suplier.php";
+                $('.datasupplier').load(datasuplier);
+            };
+
+            $("#formAddDetailNota").submit(function(e) {
+                e.preventDefault();
+                var databarang = $("#formAddDetailNota").serialize();
+                $.ajax({
+                    url: "proses/add.php",
+                    type: "post",
+                    data: databarang,
+                    success: function(data) {
+                        $('#modalTambahBarangMasuk').modal('hide');
+                        document.forms['formAddDetailNota'].reset();
+                        alert(data);
+                        location.reload();
+
+                    }
+                });
+            });
+            $("#formTambahPembayaran").submit(function(e) {
+                e.preventDefault();
+                var databarang = $("#formTambahPembayaran").serialize();
+                $.ajax({
+                    url: "proses/addPembayaran.php",
+                    type: "post",
+                    data: databarang,
+                    success: function(data) {
+                        $('#modalTambahPembayaran').modal('hide');
+                        document.forms['formTambahPembayaran'].reset();
+                        alert(data);
+                        location.reload();
+
+                    }
+                });
+            });
+
+            $("#formedittanggal").submit(function(e) {
+                e.preventDefault();
+                var databarang = $("#formedittanggal").serialize();
+                $.ajax({
+                    url: "proses/edittanggal.php",
+                    type: "post",
+                    data: databarang,
+                    success: function(data) {
+                        $('#modalEditTanggalNota').modal('hide');
+                        document.forms['formedittanggal'].reset();
+                        alert(data);
+                        location.reload();
+
+                    }
+                });
+            });
+
+            $(document).on('click','#hapusDetailNota',function(e){
+                e.preventDefault();
+                if (confirm('Yakin Ingin Menghapus?')) {
+                    $.post('proses/delete.php',
+                        {iddetailnota:$(this).attr('data-iddetailnota'),
+                        idbarang:$(this).attr('data-idbarang'),
+                        jumlah:$(this).attr('data-jumlah')},
+                        function(html){
+                            location.reload();  
+                        }   
+                        );
+                } else {
+                }
+            });
+
+            
+
+
+
+            function formatRupiah(angka, prefix){
+              var number_string = angka.replace(/[^,\d]/g, '').toString(),
+              split       = number_string.split(','),
+              sisa        = split[0].length % 3,
+              rupiah        = split[0].substr(0, sisa),
+              ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
+              if(ribuan){
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
+        var jumlahpembayaran = document.getElementById('jumlahpembayaran');
+            jumlahpembayaran.addEventListener('keyup', function(e){
+              jumlahpembayaran.value = formatRupiah(this.value, '');
+          });
+
+    });
+
+</script>
 
 </body>
 </html>

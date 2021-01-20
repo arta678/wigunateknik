@@ -10,39 +10,59 @@ $jumlah = $_POST["jumlah"];
 $harga = $_POST["harga"];
 
 
-if (isset($_POST['status'])) {
-	$status = "0";
-	$customer = $_POST['customer'];
-	$sqlTransaksi = "INSERT INTO tbtransaksi
-	VALUES 
-	('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null)";
-	$transaksi = mysqli_query($conn, $sqlTransaksi);
+if (isset($_POST['cekpelanggan'])) {
+	if (isset($_POST['hutang'])) {
+		$status = "0";
+		$customer = $_POST['customer'];
+		$sqlTransaksi = "INSERT INTO tbtransaksi
+		VALUES 
+		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,null,null,null,null,'$customer',null)";
+		$transaksi = mysqli_query($conn, $sqlTransaksi);
 
-	foreach ($_POST["idbarang"] as  $key => $sampah) {
-		$jumlah = $_POST["jumlah"][$key];
-		$harga = $_POST["harga"][$key];
-		$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
-		VALUES
-		(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}','$customer',null)
-		";
-		
-		$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-		kurangiStok($sampah,$jumlah);
+		foreach ($_POST["idbarang"] as  $key => $sampah) {
+			$jumlah = $_POST["jumlah"][$key];
+			$harga = $_POST["harga"][$key];
+			$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
+			VALUES
+			(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}')
+			";
+
+			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
+			kurangiStok($sampah,$jumlah);
+		}
+	}else{
+		$status = "1";
+		$customer = $_POST['customer'];
+		$sqlTransaksi = "INSERT INTO tbtransaksi
+		VALUES 
+		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,null,null,null,null,'$customer',null)";
+		$transaksi = mysqli_query($conn, $sqlTransaksi);
+
+		foreach ($_POST["idbarang"] as  $key => $sampah) {
+			$jumlah = $_POST["jumlah"][$key];
+			$harga = $_POST["harga"][$key];
+			$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
+			VALUES
+			(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}')
+			";
+
+			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
+			kurangiStok($sampah,$jumlah);
+		}
 	}
 } else {
 	$status = "1";
 	$sqlTransaksi = "INSERT INTO tbtransaksi
 	VALUES 
-	('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null)";
+	('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,null,null,null,null,null,null)";
 	$transaksi = mysqli_query($conn, $sqlTransaksi);
 
 	foreach ($_POST["idbarang"] as  $key => $sampah) {
 		$jumlah = $_POST["jumlah"][$key];
 		$harga = $_POST["harga"][$key];
-		// $total = $_POST["total"][$key];
 		$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 		VALUES
-		(null,'$idtransaksi', '$sampah','$harga', '{$_POST['jumlah'][$key]}',null,null)
+		(null,'$idtransaksi','$sampah','$harga','{$_POST['jumlah'][$key]}')
 		";
 		
 		$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;

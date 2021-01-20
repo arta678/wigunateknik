@@ -3,15 +3,52 @@ $judul = "Nota";
 include "../config/config.php";
 $namasuplier = $_GET['namasupplier'];
 $databarang = query("
-    SELECT tbtransaksi.tanggal as tanggal, tbtransaksi.idtransaksi as idnota, SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlah, tbtransaksi.status as status FROM tbtransaksi
+    SELECT tbtransaksi.tanggal as tanggal, tbtransaksi.idtransaksi as idnota, SUM((((tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100)) - (tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100))*tbdetailtransaksi.diskon2/100))*tbdetailtransaksi.jumlahbarang) as jumlah,tbtransaksi.ppn as ppn, tbtransaksi.status as status FROM tbtransaksi
     INNER JOIN tbdetailtransaksi
     on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
     INNER JOIN tbsuplier
-    ON tbdetailtransaksi.idsuplier = tbsuplier.idsuplier
+    ON tbtransaksi.idsuplier = tbsuplier.idsuplier
     WHERE tbsuplier.namasuplier = '$namasuplier'
     AND tbtransaksi.tipetransaksi = 'In'
     GROUP BY tbtransaksi.idtransaksi
     ORDER BY tbtransaksi.idtransaksi DESC");
+
+// $databarang = query("
+//     SELECT tbtransaksi.tanggal as tanggal, tbtransaksi.idtransaksi as idnota, SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlah, tbtransaksi.status as status FROM tbtransaksi
+//     INNER JOIN tbdetailtransaksi
+//     on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
+//     INNER JOIN tbsuplier
+//     ON tbtransaksi.idsuplier = tbsuplier.idsuplier
+//     WHERE tbsuplier.namasuplier = '$namasuplier'
+//     AND tbtransaksi.tipetransaksi = 'In'
+//     GROUP BY tbtransaksi.idtransaksi
+//     ORDER BY tbtransaksi.idtransaksi DESC");
+
+
+
+// $total = (" SELECT tbtransaksi.tanggal as tanggal, tbtransaksi.idtransaksi as idnota, SUM((((tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100)) - (tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100))*tbdetailtransaksi.diskon2/100))*tbdetailtransaksi.jumlahbarang) as jumlah,tbtransaksi.ppn as ppn, tbtransaksi.status as status FROM tbtransaksi
+    // INNER JOIN tbdetailtransaksi
+    // on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
+    // INNER JOIN tbsuplier
+    // ON tbtransaksi.idsuplier = tbsuplier.idsuplier
+    // WHERE tbsuplier.namasuplier = '$namasuplier'
+    // AND tbtransaksi.tipetransaksi = 'In'
+    // GROUP BY tbtransaksi.idtransaksi
+    // ORDER BY tbtransaksi.idtransaksi DESC ");
+
+// $totaljumlahpembayaran= ("SELECT SUM(jumlahpembayaran) as jumlahpembayaran FROM tbpembayaran
+//     WHERE tbpembayaran.idtransaksi='$idnota'");
+
+// $totaljumlahpembayaran = mysqli_fetch_assoc(mysqli_query($conn,$totaljumlahpembayaran));
+// $totaljumlahpembayaran = $totaljumlahpembayaran['jumlahpembayaran'];
+
+// $detailpembelian = mysqli_fetch_assoc(mysqli_query($conn,$total));
+// $totalpembelian = $detailpembelian['total'];
+// $ppn = $detailpembelian['ppn'];
+// $pajak = $totalpembelian*$ppn/100;
+// $ppn = $pajak;
+// $netto = $totalpembelian+$ppn; 
+
 
 if(isset($_GET['cari'])){
     $cari = $_GET['cari'];
@@ -55,26 +92,28 @@ if(isset($_GET['cari'])){
 
                             <div class="table-responsive kontentabel">
                                 
-                                <table class="table table-bordered" id="tabelbarang">
+                                <table class="table table-bordered  " id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
-                                            <th class="text-left" width="3%">No</th>
-                                            <th class="text-left">Tanggal</th>
-                                            <th class="text-left">Jumlah</th>
-                                            <th class="text-left">Foto</th>
-                                            <th class="text-left">Detail</th>
+                                            <th class="text-center" width="3%">No</th>
+                                            <th class="text-center">Tanggal</th>
+                                            <th class="text-center" colspan="2" width="5%">Jumlah</th>
+                                            <th class="text-center">Foto</th>
+                                            <th class="text-center">Detail</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style="font-size: 18px">
                                         <?php $i = 1; ?>
                                         <?php foreach( $databarang as $data ) : ?>
-                                            <tr class="odd gradeX" style="background-color: #BFFFA5;">
+                                            <tr class="odd gradeX" >
                                                 <td class="text-left"><?= $i?></td>
                                                 <td ><strong><?= $data['tanggal'] ?></strong></td>
-                                                <td class="text-left"><strong><?= rupiah($data['jumlah']) ?></strong></td>
-                                                <td ><strong>gambar</strong></td>
-                                                <td><a href="<?= url('nota/detailnota.php?idnota='.$data['idnota'].'')?>">Lihat</td>
+                                                <td class="text-right"><strong>Rp.</strong></td>
+                                                <td class="text-right"><strong><?= rupiahTanpaRp(($data['jumlah'])+($data['jumlah']*$data['ppn']/100)) ?></strong></td>
+                                                <td class="text-center"><strong>gambar</strong></td>
+                                                <td class="text-center" style="font-size: 18px"><a href="<?= url('nota/detailnota.php?idnota='.$data['idnota'].'')?>"><strong>Lihat </strong><i class="fas fa-arrow-right"></i></td>
                                             </tr>
+                                            
                                             <?php $i++ ?>
                                         <?php endforeach; ?>
                                     </tbody>

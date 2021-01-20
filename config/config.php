@@ -162,6 +162,81 @@ function tambahStok($idbarang,$jumlah){
 
 }
 
+
+
+function tampilkanJumlahLama($iddetailtransaksi){
+  global $conn; 
+  $sqlStok = "
+  SELECT jumlahbarang FROM tbdetailtransaksi 
+  WHERE iddetailtransksi ='".$iddetailtransaksi."'
+  ";
+  $hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+  $jumlah =  $hasil["jumlahbarang"];
+  return $jumlah;
+}
+
+function ubahStokBarang($idbarang,$jumlahBaru,$iddetailtransaksi){
+  global $conn; 
+  $jumlahlama = tampilkanJumlahLama($iddetailtransaksi);
+  $jumlahbaru = $jumlahBaru;
+
+  if ($jumlahlama > $jumlahbaru) {
+    $jumlah = $jumlahlama - $jumlahbaru;
+    $stoklama = tampilkanStokLama($idbarang);
+    $stokbaru = $stoklama-$jumlah;
+    $updateStok = "UPDATE tbbarang SET
+    stokbarang = '".$stokbaru."'
+    WHERE idbarang = '".$idbarang."'
+    ";  
+    mysqli_query($conn,$updateStok); 
+    return $stokbaru;
+  }else{
+    $jumlah = $jumlahbaru - $jumlahlama;
+    $stoklama = tampilkanStokLama($idbarang);
+    $stokbaru = $stoklama+$jumlah;
+    $updateStok = "UPDATE tbbarang SET
+    stokbarang = '".$stokbaru."'
+    WHERE idbarang = '".$idbarang."'
+    ";  
+    mysqli_query($conn,$updateStok); 
+    return $stokbaru;
+
+  }
+  
+
+}
+function tampilkanStokLama($idbarang){
+  global $conn; 
+  $sqlStok = "
+  SELECT stokbarang FROM tbbarang 
+  WHERE idbarang ='".$idbarang."'
+  ";
+  $hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+  $jumlah =  $hasil["stokbarang"];
+  return $jumlah;
+}
+
+
+
+
+function ubahHargaBarang($idbarang,$hargabaru){
+  global $conn; 
+  $sqlStok = "
+  SELECT hargabeli FROM tbbarang 
+  WHERE idbarang ='".$idbarang."'
+  ";
+  $hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+  $hargaLama =  $hasil["hargabeli"];
+
+  $sqlUbahHarga = "UPDATE tbbarang SET
+      hargabeli = '".$hargabaru."'
+      WHERE idbarang = '".$idbarang."'
+    ";  
+  mysqli_query($conn,$sqlUbahHarga); 
+  return $hargabaru;
+
+}
+
 function hapusTitik($nilai){
     $a= str_replace(".", "", $nilai);
     $a = stringToInt($a);

@@ -9,32 +9,29 @@ if(isset($_GET['cari'])){
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <form method="post" id="formeditbarang" action="proses/edit.php">
-                <!-- <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Edit Barang</h4>
-                </div> -->
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row" style="font-weight: bold;">
                         <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="nama">Nama Barang</label>
-                                <input class="form-control" placeholder="Nama" id="nama" name="nama" value="<?= $data['namabarang']?>">
-                                <input type="hidden"  name="idbarang" value="<?= $data['idbarang']?>">
-                                <input type="hidden" name="cari" value="<?= $cari;?>">
+                            <div class="form-group" >
+                                <h5 for="nama">Nama Barang</h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;"  class="form-control" placeholder="Nama" id="nama" name="nama" value="<?= $data['namabarang']?>">
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="hidden"  name="idbarang" value="<?= $data['idbarang']?>">
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="hidden" name="cari" value="<?= $cari;?>">
                             </div>
                             <div class="form-group">
-                                <label for="hargabeli">Harga Beli</label>
-                                <input class="form-control" placeholder="Harga Beli" id="hargabeliedit" name="hargabeli" value="<?= rupiahTanpaRp($data['hargabeli'])?>" required>
+                                <h5 for="hargabeli">Harga Beli</h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="hargabeliedit" name="hargabeli" value="<?= rupiahTanpaRp($data['hargabeli'])?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="hargajual">Harga Jual</label>
-                                <input class="form-control" placeholder="Harga Jual" id="hargajualedit" name="hargajual" value="<?= rupiahTanpaRp($data['hargajual'])?>" required>
+                                <h5 for="hargajual">Harga Jual</h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Jual" id="hargajualedit" name="hargajual" value="<?= rupiahTanpaRp($data['hargajual'])?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="stokbarang">Stok Barang</label>
-                                <input type="number" class="form-control"  id="stokbarang" name="stokbarang" value="<?= $data['stokbarang']?>" required>
+                                <h5 for="stokbarang">Stok Barang</h5>
+                                <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="number" class="form-control"  id="stokbarang" name="stokbarang" value="<?= $data['stokbarang']?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="kategori" >Kategori</label>
+                                <h5 for="kategori" >Kategori</h5>
                                 <select class="form-control col-md-12" name="kategori" id="sel_kategori" value="<?= $data['kategori']?>" required>
                                     <?php 
                                     $input = "SELECT * FROM tbkategori";

@@ -6,7 +6,7 @@ $databarang = query("
     INNER JOIN tbdetailtransaksi
     on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
     INNER JOIN tbsuplier
-    ON tbdetailtransaksi.idsuplier = tbsuplier.idsuplier
+    ON tbtransaksi.idsuplier = tbsuplier.idsuplier
     WHERE tbtransaksi.tipetransaksi = 'In'
     GROUP BY tbsuplier.namasuplier");
 
@@ -48,23 +48,25 @@ if(isset($_GET['cari'])){
                         <div class="panel-body">
                             <h3><strong>Daftar Nota</strong></h3>
                             <div class="table-responsive kontentabel">
-                                <table class="table  table-bordered" id="tabelbarang">
+                                <table class="table  table-bordered table-striped" id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
                                             <th class="text-center" width="3%">No</th>
                                             <th class="text-center">Nama Suplier</th>
                                             <th class="text-center">Total Hutang</th>
+                                            <th class="text-center">Detail</th>
                                         </tr>
                                     </thead>
-                                    <tbody  class="odd gradeX"  >
+                                    <tbody  class="odd gradeX" style="font-size: 18px" >
                                         <?php $i = 1; ?>
                                         <?php foreach( $databarang as $data ) : ?>
                                             <tr>
                                                 <td class="text-center"><?= $i?></td>
-                                                <td><a href="<?= url('nota/daftarnota.php?namasupplier='.$data["nama"].'')?>"><?= $data['nama'] ?></td>
+                                                <!-- <td><a href="<?= url('nota/daftarnota.php?namasupplier='.$data["nama"].'')?>"><strong><?= $data['nama'] ?></strong></td> -->
                                                 
-                                                <!-- <td ><strong><?= $data['nama'] ?></strong></td> -->
+                                                 <td ><strong><?= $data['nama'] ?></strong></td>
                                                 <td class="text-left"><strong><?= rupiah($data['jumlah']) ?></strong></td>
+                                                <td><a href="<?= url('nota/daftarnota.php?namasupplier='.$data["nama"].'')?>"><strong>Lihat </strong><i class="fas fa-arrow-right"></i></td>
                                             </tr>
                                             <?php $i++ ?>
                                         <?php endforeach; ?>

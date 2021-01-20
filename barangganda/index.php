@@ -49,17 +49,16 @@ if(isset($_GET['cari'])){
                 <div class="col-lg-12">
                     <h1>
                         <!-- <strong>Data Barang</strong>  -->
-                        <button type="button" class="btn btn-secondary btn-circle btn-lg" data-toggle="modal" data-target="#modalTambah" title="Tambah Data"><i class="fa far fa-edit"></i></button>
+                         <button type="button" class="btn btn-default  btn-lg" data-toggle="modal" data-target="#modalTambah" title="Tambah Data"><i class="fa far fa-edit"></i> Add</button>
 
-                        <button type="button" class="btn btn-secondary btn-circle btn-lg" data-toggle="modal" data-target="#modalUpload"  title="Upload File CVS"><i class="fa fa-upload"></i></button>
+                        <button type="button" class="btn btn-default  btn-lg" data-toggle="modal" data-target="#modalUpload"  title="Upload File CVS"><i class="fa fa-upload"></i> Upload</button>
 
-                        <button type="submit" class="btn btn-secondary btn-circle btn-lg" form="formdownload" title="Download File CSV" name="download"><i class="fa fa-download"></i>
+                        <button type="submit" class="btn btn-default  btn-lg" form="formdownload" title="Download File CSV" name="download"><i class="fa fa-download"></i> Download</button>
+
+                        <button type="submit" class="btn btn-default  btn-lg" title="Hapus data yang dipilih" form="formmulti" name='but_delete' id="but_delete" onclick="return confirm('Yakin dihapus?');" disabled ><i class="fa fa-times"></i> Delete 
                         </button>
 
-                        <button type="submit" class="btn btn-secondary btn-circle btn-lg" title="Hapus data yang dipilih" form="formmulti" name='but_delete' id="but_delete" onclick="return confirm('Yakin dihapus?');" disabled ><i class="fa fa-times"></i>
-                        </button>
-
-                        <a href="index.php"><button type="button" class="btn btn-secondary btn-circle btn-lg" title="Cek Data Ganda"><i class="fa fas fa-copy"></i>
+                        <a href="../barangganda/"><button type="button" class="btn btn-default  btn-lg" title="Cek Data Ganda"><i class="fa fas fa-copy"></i>
                         </button></a>
                     </h1>
                 </div>

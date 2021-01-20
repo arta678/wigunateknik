@@ -63,7 +63,7 @@ if(isset($_GET['cari'])){
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
                                             <th class="text-center">Date</th>
-                                            <th class="text-center" width="100px">Transaction</th>
+                                            <th class="text-center" width="40px"></th>
                                             <th class="text-center">Q</th>
                                             <th class="text-center">Name Item</th>
                                             <th class="text-center">Price</th>
@@ -90,7 +90,7 @@ if(isset($_GET['cari'])){
                                                 <td class="text-center"><strong><a href="<?= url('barang/?cari='.$data["namabarang"].'')?>"><?= $data['namabarang'] ?>
                                             </a></strong>
                                         </td>
-                                        <td class="text-center"><strong><?= rupiah($data['hargajual']) ?></strong>
+                                        <td class="text-right"><strong><?= rupiahTanpaRp($data['hargajual']) ?></strong>
                                         </td>
                                         <td class="text-center"><strong><?= $data['namakategori'] ?></strong>
                                         </td>

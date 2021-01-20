@@ -16,7 +16,7 @@ while ( $row = mysqli_fetch_array($hasil) ) { ?>
 ?>
 </select> -->
 <label for="barang">Pilih Barang</label>
-<select  class="form-control" data-live-search="true" data-size="5" name="barang[]" required  id="barang" title="Pilih Barang">
+<select style="background-color: #CBCBCB; color: black; font-size: 18px;"  class="form-control" data-live-search="true" data-size="5" name="barang[]" required  id="barang" title="Pilih Barang">
   <?php 
   $input =    "SELECT * FROM tbbarang INNER JOIN tbkategori
   ON tbbarang.kategori = tbkategori.idkategori 
@@ -33,7 +33,7 @@ while ( $row = mysqli_fetch_array($hasil) ) { ?>
   </select>
   <script type="text/javascript">
     $(document).ready(function(){
-
+      $('#barang').val(null).trigger('change');
       $('#barang').select2({
         theme: "bootstrap",
         width: '100%',

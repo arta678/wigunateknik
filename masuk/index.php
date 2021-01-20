@@ -45,10 +45,11 @@ if(isset($_GET['cari'])){
                 </div>
             </div>
             <?php include 'modalAdd.php'; ?>
+            <?php include 'modalAddKategori.php'; ?>
             <div class="row">
                 <div class="col-lg-4 ">
                     <div class="panel panel-default ">
-                        <div class="panel-body">
+                        <div class="panel-body" style="background-color: #00794d; color: white">
                             <div class="form-group ">
                                 <label for="tanggal">Tanggal</label>
                                 <input type="date" class="form-control" name="tanggal" value="<?= date('Y-m-d') ?>" form="formaddbarangmasuk">
@@ -67,36 +68,65 @@ if(isset($_GET['cari'])){
                                 </select>
                             </div>
                             <div class="form-group ">
-                                <label for="jumlah">Q</label>
+                                <label for="jumlah">Qty</label>
                                 <input type="number" class="form-control" name="jumlah[]" onclick="this.select()" id="jumlah" onKeyUp="enableButtonTambah()" >
                             </div>
                             <div class="form-group databarang">
                             </div>
-                            <audio id="song">
-                                <source src="../asset/sound/popup.mp3" type="audio/mpeg">
-                                </audio>
-                                <div class="form-group ">
-                                    <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled>Masukkan <i class="fa fas fa-arrow-right fa-fw"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#modalTambah" title="Tambah Data">Tambah Barang <i class="fa fas fa-plus fa-fw"></i>
-                                    </button>    
-                                </div>
-                                <div class="form-group ">
+                            <div class="form-group">
+                                <label for="idsatuan">Satuan</label>
+                                <select class="form-control col-md-12" name="idsatuan" required  id="idsatuan">
+                                    <?php 
+                                    $input = "SELECT * FROM tbsatuan ";
+                                    $hasil = mysqli_query($conn, $input);
+                                    while ( $row = mysqli_fetch_array($hasil) ) { ?>
+                                        <option  value="<?= $row['idsatuan'] ?>" data-lookup="<?= $row['namasatuan']; ?>" data-namasatuan="<?=  $row['namasatuan']; ?>"><?= $row['namasatuan']; ?></option>
+                                        <?php 
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="jumlah">Harga Baru</label>
+                                <input type="text" class="form-control" name="modal" id="modal"   placeholder="Harga Baru">
+                                
+                            </div>
+                            <div class="form-group " id="checkboxViewDiskon">
+                                <input type="checkbox" name="tampilkanDiskon" id="tampilkanDiskon">
+                                <label for="tampilkanDiskon">Discount</label>
+
+                            </div>
+                            <div class="classTampilkanDiskon">
+                                <div class="form-group">
                                     <label for="diskon1">Diskon 1</label>
-                                    <input type="input" class="form-control" name="diskon1" value="0" form="formaddbarangmasuk">
+                                    <input type="input" class="form-control" name="diskon1" id="diskon1" value="0" >
                                 </div>
                                 <div class="form-group ">
                                     <label for="diskon2">Diskon 2</label>
-                                    <input type="input" class="form-control" name="diskon2" value="0" form="formaddbarangmasuk">
+                                    <input type="input" class="form-control" name="diskon2" id="diskon2" value="0" >
                                 </div>
-                                <div class="form-group ">
-                                    <label for="diskon3">Diskon 3</label>
-                                    <input type="input" class="form-control" name="diskon3" value="0" form="formaddbarangmasuk">
+                            </div>
+
+
+                            <audio id="song">
+                                <source src="../asset/sound/popup.mp3" type="audio/mpeg">
+                                </audio>
+                                <div class="form-group " >
+                                    <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled style="font-size: 18px;"><strong>Input</strong>  <i class="fa fas fa-arrow-right fa-fw fa-lg"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#modalTambah" title="Tambah Data" style="font-size: 18px;"><strong>Barang</strong> <i class="fa fas fa-plus fa-fw"></i>
+                                    </button>    
                                 </div>
                                 <div class="form-group ">
                                     <input type="checkbox" id="ppn" name="ppn" form="formaddbarangmasuk">
-                                    <label for="ppn">Hutang</label><br>
+                                    <label for="ppn">PPN (10%)</label><br>
                                 </div>
+                                <div class="form-group " id="checkboxLunas">
+                                    <input type="checkbox" name="lunas" id="lunas" form="formaddbarangmasuk">
+                                    <label for="lunas" >LUNAS</label>
+                                    
+                                </div>
+
 
                                 <div class="form-group ">
                                     <input type="hidden" class="form-control" name="kategori" id="kategori" disabled="" placeholder="Kategori" >
@@ -104,14 +134,17 @@ if(isset($_GET['cari'])){
                                 <div class="form-group ">
                                     <input type="hidden" class="form-control" name="namabarang" id="namabarang" disabled="" placeholder="Nama Barang">
                                 </div>
-                                <div class="form-group ">
-                                    <input type="hidden" class="form-+control" name="harga" id="harga"  disabled="" placeholder="Harga Barang">
-                                </div>
+                                
                                 <div class="form-group ">
                                     <input type="hidden" class="form-control" name="stok" id="stok"  disabled="" placeholder="Stok Barang">
                                 </div>
                                 <div class="form-group ">
-                                    <input type="hidden" class="form-control" name="modal" id="modal"  disabled="" placeholder="Harga Modal">
+
+                                    <input type="hidden" class="form-control" name="harga" id="harga" disabled=""  placeholder="Harga Barang">
+                                </div>
+                                <div class="form-group ">
+
+                                    <input type="hidden" class="form-control" name="satuan" id="satuan" disabled="" placeholder="Harga Barang">
                                 </div>
                             </div>
                         </div>
@@ -123,10 +156,13 @@ if(isset($_GET['cari'])){
                                 <table  class="table col-md-12 table-sm table-bordered  text-center"  >
                                     <thead class="text-left">
                                         <tr>   
-                                            <th width="45px">Q</th>
-                                            <th width="200px">Barang </th>
-                                            <th>Kategori</th>
-                                            <th>Stok Barang</th>
+                                            <th>Barang</th>
+                                            <th>Qty</th>
+                                            <th>Satuan</th>
+                                            <th>Harga</th>
+                                            <th>Disc 1</th>
+                                            <th>Disc 2</th>
+                                            <th>Jumlah</th>
                                             <th width="10px">Hapus</th>
                                         </tr>
                                     </thead>
@@ -176,6 +212,7 @@ if(isset($_GET['cari'])){
 
             loadBarang();
             loadDataKategori();
+            $('#idsatuan').val(null).trigger('change');
             $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
                 $(this).closest(".select2-container").siblings('select:enabled').select2('open');
             });
@@ -190,9 +227,22 @@ if(isset($_GET['cari'])){
                 width: '100%',
                 placeholder: 'Pilih Supplier'
             });
+            $('#idsatuan').select2({
+                theme: "bootstrap",
+                width: '100%',
+                placeholder: 'Pilih Satuan',
+                matcher: matchCustom
+            });
+            $('#idsatuan').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                $('#satuan').val(selectedOption[0].dataset.namasatuan);
+            });
 
             $('#modalTambah').on('shown.bs.modal', function() {
                 $('#nama').focus();
+            });
+            $('#modalTambahKategori').on('shown.bs.modal', function() {
+                $('#namakategori').focus();
             });
 
             function loadBarang(){
@@ -292,28 +342,51 @@ if(isset($_GET['cari'])){
                     return data;
                 }
                 return null;
-            }
+            };
 
             $('#tambah').click(function (e) {
                 var id          = $("#barang").val();
                 var harga       = $("#harga").val();
                 var jumlah      = $("#jumlah").val();
+                var idsatuan    = $("#idsatuan").val();
+                var satuan      = $("#satuan").val();
                 var kategori    = $("#kategori").val();
                 var stok        = $("#stok").val();
                 var modal        = $("#modal").val();
+                var diskon1        = $("#diskon1").val();
+                var diskon2        = $("#diskon2").val();
 
-                var perkalian = jumlah*modal;
+                // =E9-(E9*35/100)
 
+                var jumlahDiskon1 = modal-((modal*diskon1)/100);
+                var totalDiskon1 = jumlahDiskon1*jumlah;
+
+
+                // var perkalian = jumlah*modal;
+                // var 
+                // var htm="<tr>";
+                // htm += "<td>" + '<input type="hidden" form="formaddbarangmasuk" name="jumlah[]" value="' 
+                // + $("#jumlah").val() + '">'+' <input type="hidden" name="idbarang[]" form="formaddbarangmasuk" value="' 
+                // + $("#barang").val() + '">'+ $("#jumlah").val() +"</td>";
+                // htm += "<td>" + '<input type="hidden">'+ $("#namabarang").val() +"</td>";
+                // htm += "<td>" + '<input type="hidden" name="harga[]" form="formaddbarangmasuk" value="' + $("#modal").val() + '">'+ $("#kategori").val()+" </td>";
+                // htm += "<td>" + '<input type="hidden" value="' + $("#harga").val() + '">'+ $("#stok").val() +"</td>";
+                // htm += "<td>" + '<button id="del" class="btn btn-danger btn-sm">X</button>'+ "</td>";
+                // htm += "</tr>";
 
                 var htm="<tr>";
-                htm += "<td>" + '<input type="hidden" form="formaddbarangmasuk" name="jumlah[]" value="' + $("#jumlah").val() + '">'+' <input type="hidden" name="idbarang[]" form="formaddbarangmasuk" value="' + $("#barang").val() + '">'+ $("#jumlah").val() +"</td>";
                 htm += "<td>" + '<input type="hidden">'+ $("#namabarang").val() +"</td>";
-
-                htm += "<td>" + '<input type="hidden" name="harga[]" form="formaddbarangmasuk" value="' + $("#modal").val() + '">'+ $("#kategori").val()+" </td>";
-
-                htm += "<td>" + '<input type="hidden" value="' + $("#harga").val() + '">'+ $("#stok").val() +"</td>";
+                htm += "<td>" + '<input type="hidden" form="formaddbarangmasuk" name="jumlah[]" value="' 
+                + $("#jumlah").val() + '">'+' <input type="hidden" name="idbarang[]" form="formaddbarangmasuk" value="' 
+                + $("#barang").val() + '">'+ $("#jumlah").val() +"</td>";
+                htm += "<td>" + '<input type="hidden" name="idsatuan[]" form="formaddbarangmasuk" value="' + idsatuan + '">'+ satuan+" </td>";
+                htm += "<td>" + '<input type="hidden" name="harga[]" form="formaddbarangmasuk" value="' + modal + '">'+ modal+" </td>";
+                htm += "<td>" + '<input type="hidden" name="diskon1[]" form="formaddbarangmasuk" value="' + diskon1 + '">'+ diskon1+" </td>";
+                htm += "<td>" + '<input type="hidden" name="diskon2[]" form="formaddbarangmasuk" value="' + diskon2 + '">'+ diskon2+" </td>";
+                htm += "<td>" + '<input type="hidden" value="' + $("#harga").val() + '">'+totalDiskon1+"</td>";
                 htm += "<td>" + '<button id="del" class="btn btn-danger btn-sm">X</button>'+ "</td>";
                 htm += "</tr>";
+
 
                 $("#tbody").append(htm);
                 $('#jumlah').val('');
@@ -321,53 +394,34 @@ if(isset($_GET['cari'])){
                 $('#namabarang').val('');
                 $('#harga').val('');
                 $('#jumlah').val('');
+                $('#modal').val('');
                 $('#stok').val('');
+                $('#diskon1').val(0);
+                $('#diskon2').val(0);
+                // $(".classTampilkanDiskon").hide();
+                
+                // $('#tampilkanDiskon').prop('checked',false);
+                
                 $('#jumlah').focus();
                 $('#simpan').removeAttr('disabled');
-                $('#barang').val(null).trigger('change');
+                $('#barang').val("Pilih Barang").trigger('change');
+                $('#idsatuan').val(null).trigger('change');
+                // $("#idsatuan").select2("val", "");
                 document.getElementById("tambah").disabled=true;
+
             });
 
             $('#tbody').on('click','#del',function(e){
                 $(this).parent().parent().remove();
             })
 
-            $('#select_all').on('click',function(){
-                if(this.checked){
-                    $('.checkbox').each(function(){
-                        this.checked = true;
-                    });
-                    $('#but_delete').removeClass('btn-secondary');
-                    $('#but_delete').addClass('btn-danger');
-                    $("#but_delete").attr("disabled", false);
-                    $("#but_edit").attr("disabled", false);
-                }else{
-                    $('.checkbox').each(function(){
-                        this.checked = false;
-                    });
-                    $('#but_delete').removeClass('btn-danger');
-                    $('#but_delete').addClass('btn-secondary');
-                    $("#but_delete").attr("disabled", true);
-                    $("#but_edit").attr("disabled", true);
-                }
-            });
 
-            $('.checkbox').on('click',function(){
-                if($('.checkbox:checked').length == $('.checkbox').length){
-                    $('#select_all').prop('checked',true);
-                }else{  
-                    $('#select_all').prop('checked',false);
-                }
-                if ($('.checkbox:checked').length >0) {
-                    $('#but_delete').removeClass('btn-secondary');
-                    $('#but_delete').addClass('btn-danger');
-                    $("#but_delete").attr("disabled", false);
-                    $("#but_edit").attr("disabled", false);
-                }else{
-                    $('#but_delete').removeClass('btn-danger');
-                    $('#but_delete').addClass('btn-secondary');
-                    $("#but_delete").attr("disabled", true);
-                    $("#but_edit").attr("disabled", true);
+            $(".classTampilkanDiskon").hide();
+            $("#tampilkanDiskon").click(function () {
+                if ($(this).is(":checked")) {
+                    $(".classTampilkanDiskon").show();
+                } else {
+                    $(".classTampilkanDiskon").hide();
                 }
             });
 

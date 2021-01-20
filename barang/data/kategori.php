@@ -4,8 +4,8 @@ include '../../config/config.php';
 <link href="../../asset/plugins/select2/css/select2.min.css" rel="stylesheet" > 
 <link href="../../asset/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
 
-<label for="kategori">Kategori</label>
-<select class="form-control col-md-12" name="kategori" required form="formaddbarang" id="kategori">
+<h5 for="kategori">Kategori</h5>
+<select class="form-control col-md-12"  name="kategori" required form="formaddbarang" id="kategori" style="background-color: #CBCBCB;">
   <?php 
   $input = "SELECT * FROM tbkategori ";
   $hasil = mysqli_query($conn, $input);

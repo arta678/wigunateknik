@@ -3,19 +3,19 @@
     <div class="modal-content">
       <form role="form" method="POST" id="formaddbarang"></form>
       <div class="modal-body">
-        <div class="row">
+        <div class="row" style="font-weight: bold;">
           <div class="col-lg-12">
             <div class="form-group">
-              <label for="nama">Nama Barang</label>
-              <input class="form-control" placeholder="Nama" id="nama" name="nama" autofocus required form="formaddbarang">
+              <h5 for="nama">Nama Barang</h5>
+              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Nama" id="nama" name="nama" autofocus required form="formaddbarang">
             </div>
             <div class="form-group">
-              <label for="hargabeli">Harga Beli</label>
-              <input type="text" class="form-control" placeholder="Harga beli" id="hargabeli" name="hargabeli" required form="formaddbarang">
+              <h5 for="hargabeli">Harga Beli</h5>
+              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="text" class="form-control" placeholder="Harga beli" id="hargabeli" name="hargabeli" required form="formaddbarang">
             </div>
             <div class="form-group">
-              <label for="hargajual">Harga Jual</label>
-              <input type="text" class="form-control" placeholder="Harga jual" id="hargajual" name="hargajual" required form="formaddbarang">
+              <h5 for="hargajual">Harga Jual</h5>
+              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="text" class="form-control" placeholder="Harga jual" id="hargajual" name="hargajual" required form="formaddbarang">
             </div>
 
             <div class="form-group datakategori">

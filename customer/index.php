@@ -42,10 +42,7 @@ if(isset($_GET['cari'])){
                 <div class="col-lg-12">
                     <h1>
                         <!-- <strong>Data Barang</strong>  -->
-                        <button type="button" class="btn btn-secondary btn-circle btn-lg" data-toggle="modal" data-target="#modalTambah" title="Tambah Data"><i class="fa far fa-edit"></i></button>
-
-                        <button type="submit" class="btn btn-secondary btn-circle btn-lg" title="Hapus data yang dipilih" form="formmulti" name='but_delete' id="but_delete" onclick="return confirm('Yakin dihapus?');" disabled ><i class="fa fa-times"></i>
-                        </button>
+                        <button type="button" class="btn btn-default  btn-lg" data-toggle="modal" data-target="#modalTambah" title="Tambah Data"><i class="fa far fa-edit"></i> Add</button>
                     </h1>
                 </div>
                 <?php include 'modalAdd.php'; ?>
@@ -58,29 +55,22 @@ if(isset($_GET['cari'])){
                                 <table class="table table-striped table-bordered" id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
-                                            <th width="3%"><input type="checkbox" id="select_all" value=""  /></th>
-                                            <th class="text-center">Nama Customer</th>
+                                            <th class="text-center">Nama</th>
                                             <th class="text-center">Alamat</th>
                                             <th class="text-center">No HP</th>
-                                            <!-- <th class="text-center">Stok</th> -->
-                                            <!-- <th class="text-center">Kategori</th> -->
-                                            <th class="text-center" width="145px">Aksi</th>
+                                            <th class="text-center" width="145px">Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach( $databarang as $data ) : ?>
                                             <tr class="odd gradeX">
-                                                <td><input type="checkbox" class="checkbox"  name='delete[]' value="<?= $data['idcustomer'] ?>" form="formmulti" /></td>
                                                 <td > 
                                                     <strong data-toggle="modal" data-target="#modaledit_<?= $data['idcustomer'] ?>"><?= $data['nama'] ?></strong>
                                                 </td>
                                             </td>
                                             <td class="text-center"><strong><?= $data['alamat']; ?></strong></td>
                                             <td class="text-center"><?= $data['hp']?>
-                                            <td class="text-center">
-                                                    <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="hapus" data-id="<?= $data['idcustomer'] ?>">Delete</button>
-                                            
-                                            </td>
+                                            <td class="text-center"  style="color: white; background-color: #C72D30; text-align: justify-all;" id="hapus" data-id="<?= $data['idcustomer'] ?>"><strong>Hapus</strong></td>
                                         </tr>
                                         <?php include 'modalEdit.php'; ?>
                                     <?php endforeach; ?>
@@ -122,44 +112,6 @@ if(isset($_GET['cari'])){
             });
         });
 
-$('#select_all').on('click',function(){
-    if(this.checked){
-        $('.checkbox').each(function(){
-            this.checked = true;
-        });
-        $('#but_delete').removeClass('btn-secondary');
-        $('#but_delete').addClass('btn-danger');
-        $("#but_delete").attr("disabled", false);
-        $("#but_edit").attr("disabled", false);
-    }else{
-        $('.checkbox').each(function(){
-            this.checked = false;
-        });
-        $('#but_delete').removeClass('btn-danger');
-        $('#but_delete').addClass('btn-secondary');
-        $("#but_delete").attr("disabled", true);
-        $("#but_edit").attr("disabled", true);
-    }
-});
-
-$('.checkbox').on('click',function(){
-    if($('.checkbox:checked').length == $('.checkbox').length){
-        $('#select_all').prop('checked',true);
-    }else{  
-        $('#select_all').prop('checked',false);
-    }
-    if ($('.checkbox:checked').length >0) {
-        $('#but_delete').removeClass('btn-secondary');
-        $('#but_delete').addClass('btn-danger');
-        $("#but_delete").attr("disabled", false);
-        $("#but_edit").attr("disabled", false);
-    }else{
-        $('#but_delete').removeClass('btn-danger');
-        $('#but_delete').addClass('btn-secondary');
-        $("#but_delete").attr("disabled", true);
-        $("#but_edit").attr("disabled", true);
-    }
-});
 
 $(document).on('click','#hapus',function(e){
     e.preventDefault();
@@ -172,7 +124,6 @@ $(document).on('click','#hapus',function(e){
             }   
             );
     } else {
-        alert('Batal Menghapus!');
     }
 });
 });

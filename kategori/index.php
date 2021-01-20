@@ -46,19 +46,19 @@ if(isset($_GET['cari'])){
                 <div class="col-lg-12">
                     <h1>
                         <!-- <strong>Data Kategori</strong>  -->
-                        <button type="button" class="btn btn-secondary btn-circle btn-lg" data-toggle="modal" data-target="#modalTambahKategori" title="Tambah Data"><i class="fa far fa-edit"></i></button>
+                        <button type="button" class="btn btn-default  btn-lg" data-toggle="modal" data-target="#modalTambahKategori" title="Tambah Data"><i class="fa far fa-edit"></i> Add</button>
 
-                        <button type="submit" class="btn btn-secondary btn-circle btn-lg" title="Hapus data yang dipilih" form="formmulti" name='but_delete' id="but_delete" onclick="return confirm('Yakin dihapus?');" disabled ><i class="fa fa-times"></i>
+                        <button type="submit" class="btn btn-default  btn-lg" title="Hapus data yang dipilih" form="formmulti" name='but_delete' id="but_delete" onclick="return confirm('Yakin dihapus?');" disabled ><i class="fa fa-times"></i> Delete
                         </button>
 
-                        <a href="../barangganda/"><button type="button" class="btn btn-secondary btn-circle btn-lg" title="Cek Data Ganda"><i class="fa fas fa-copy"></i>
+                        <a href="../barangganda/"><button type="button" class="btn btn-default  btn-lg" title="Cek Data Ganda"><i class="fa fas fa-copy"></i> 
                         </button></a>
                     </h1>
                 </div>
                 <?php include 'modalAdd.php'; ?>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="panel panel-default" >
                         <div class="panel-body" >
                             <div class="table-responsive kontentabel" >
@@ -68,7 +68,7 @@ if(isset($_GET['cari'])){
                                             <th width="3%"><input type="checkbox" id="select_all" value=""  /></th>
                                             <th class="text-center" width="150px">Nama Kategori</th>
                                             <th class="text-center">Jumlah</th>
-                                            <th class="text-center" width="145px">Aksi</th>
+                                            <th class="text-center" width="50px">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,7 +80,7 @@ if(isset($_GET['cari'])){
                                                 </td>
                                             </td>
                                             <td class="text-left"><a href="../barang/?filter=<?= $data['namakategori']?>"><strong><?= $data['jumlah'] ?> Barang</strong></a></td>
-                                            <td class="text-center">
+                                            <!-- <td class="text-center">
                                                 <div class="dropdown">
                                                     <button class="btn btn-danger btn-sm dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete</button>
 
@@ -88,7 +88,8 @@ if(isset($_GET['cari'])){
                                                         <li ><a href="#<?= $data['idkategori'] ?>" id="hapus" data-id="<?= $data['idkategori'] ?>">Yes, Delete!</a></li>
                                                     </ul>
                                                 </div>
-                                            </td>
+                                            </td> -->
+                                            <td class="text-center" style="color: white; background-color: #C72D30; text-align: justify-all;" id="hapus" data-id="<?= $data['idkategori'] ?>"><strong>Hapus</strong></td>
                                         </tr>
                                         <?php include 'modalEdit.php'; ?>
                                     <?php endforeach; ?>
@@ -183,15 +184,29 @@ $('.checkbox').on('click',function(){
     }
 });
 
+// $(document).on('click','#hapus',function(e){
+//     e.preventDefault();
+//     $.post('proses/delete.php',
+//         {idkategori:$(this).attr('data-id')},
+//         function(html){
+//             alert('berhasil dihapus !');
+//             location.reload();  
+//         }   
+//         );
+// });
+
 $(document).on('click','#hapus',function(e){
     e.preventDefault();
-    $.post('proses/delete.php',
-        {idkategori:$(this).attr('data-id')},
-        function(html){
-            alert('berhasil dihapus !');
-            location.reload();  
-        }   
-        );
+    if (confirm('Yakin Ingin Menghapus?')) {
+        $.post('proses/delete.php',
+            {idkategori:$(this).attr('data-id')},
+            function(html){
+                alert('berhasil dihapus !');
+                location.reload();  
+            }   
+            );
+    } else {
+    }
 });
 
 });
