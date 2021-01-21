@@ -4,10 +4,11 @@ $idtransaksi = $_POST["idnota"];
 $idbarang = $_POST["barang"];
 $jumlah = $_POST["jumlahbarang"];
 $harga = $_POST["hargabeli"];
+$idsatuan = $_POST["idsatuan"];
 
 $query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 VALUES
-(null,'$idtransaksi','$idbarang','$harga','$jumlah')
+(null,'$idtransaksi','$idbarang','$harga','$jumlah','$idsatuan','$dis1','$dis2')
 ";
 
 

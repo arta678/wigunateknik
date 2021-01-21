@@ -2,12 +2,12 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <form role="form" method="POST" id="formaddbarang"></form>
-      <div class="modal-body">
+      <div class="modal-body " style="background-color: #00794d; color: white">
         <div class="row" style="font-weight: bold;">
           <div class="col-lg-12">
             <div class="form-group">
-              <h5 for="nama">Nama Barang</h5>
-              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Nama" id="nama" name="nama" autofocus required form="formaddbarang">
+              <h5 for="nama"><strong>Nama Barang</strong></h5>
+              <input style=" color: black; font-size: 18px;" class="form-control" placeholder="Nama" id="nama" name="nama" autofocus required form="formaddbarang">
             </div>
 <!--             <div class="form-group">
               <h5 for="hargabeli">Harga Beli</h5>

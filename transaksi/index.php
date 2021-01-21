@@ -9,6 +9,8 @@ $databarang = query("SELECT * FROM tbtransaksi
     ON tbdetailtransaksi.idbarang = tbbarang.idbarang
     INNER JOIN tbkategori
     ON tbbarang.kategori = tbkategori.idkategori
+    INNER JOIN tbsatuan
+    ON tbdetailtransaksi.idsatuan = tbsatuan.idsatuan
     WHERE day(tbtransaksi.tanggal) = day(now())
     and month(tbtransaksi.tanggal) = month(now())
     and year(tbtransaksi.tanggal) = year(now())
@@ -62,11 +64,12 @@ if(isset($_GET['cari'])){
                                 <table class="table table-striped table-bordered" id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
                                         <tr>
-                                            <th class="text-center">Date</th>
+                                            <th class="text-center" width="10%">Date</th>
                                             <th class="text-center" width="40px"></th>
-                                            <th class="text-center">Q</th>
+                                            <th class="text-center">Qty</th>
+                                            <th class="text-center">Satuan</th>
                                             <th class="text-center">Name Item</th>
-                                            <th class="text-center">Price</th>
+                                            <!-- <th class="text-center">Price</th> -->
                                             <th class="text-center">Category</th>
                                             <!-- <th class="text-center" width="145px">Delete</th> -->
                                         </tr>
@@ -87,16 +90,15 @@ if(isset($_GET['cari'])){
                                                 ?>
                                                 <td class="text-center"><strong><?= $data['jumlahbarang']; ?></strong>
                                                 </td>
+                                                <td class="text-center"><strong><?= $data['namasatuan']; ?></strong>
+                                                </td>
                                                 <td class="text-center"><strong><a href="<?= url('barang/?cari='.$data["namabarang"].'')?>"><?= $data['namabarang'] ?>
                                             </a></strong>
                                         </td>
-                                        <td class="text-right"><strong><?= rupiahTanpaRp($data['hargajual']) ?></strong>
-                                        </td>
+                                       <!--  <td class="text-right"><strong><?= rupiahTanpaRp($data['hargajual']) ?></strong>
+                                        </td> -->
                                         <td class="text-center"><strong><?= $data['namakategori'] ?></strong>
                                         </td>
-                                        <!-- <td class="text-center">
-                                            <a href="#" id="hapus" data-id="<?= $data['idbarang'] ?>">Delete</a>
-                                        </td> -->
                                     </tr>
                                     <?php include 'modalEdit.php'; ?>
                                 <?php endforeach; ?>

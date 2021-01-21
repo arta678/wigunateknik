@@ -20,7 +20,7 @@ function formatTanggal($data){
 }
 
 function url($url = null){
-  $base_url = "http://localhost/wigunateknik";
+  $base_url = "http://192.168.1.123/wigunateknik";
   if ($url != null) {
     return $base_url."/".$url;
   }else{

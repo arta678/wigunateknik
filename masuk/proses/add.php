@@ -1,5 +1,5 @@
 <?php 
-include '../../config/config.php';
+include_once '../../config/config.php';
 $idtransaksi = kodetransaksi();
 $tanggal = $_POST["tanggal"];
 $tipetransaksi = "In";
@@ -17,9 +17,25 @@ if (isset($_POST['lunas'])) {
 		VALUES 
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
+
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
+
+			// proses pembagian harga 
+
+
+
+			$sqlStok = "
+			SELECT isisatuan as isi FROM tbsatuan
+			WHERE idsatuan = '".$_POST["idsatuan"][$key]."'
+			";
+			$hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+			$isisatuan =  $hasil["isi"];
+
+			$hargaBarangSatuan = $_POST["harga"][$key];
+			$harga = $hargaBarangSatuan/$isisatuan;
+
 			$jumlah = $_POST["jumlah"][$key];
-			$harga = $_POST["harga"][$key];
+			$jumlahBarangReal = $jumlah*$isisatuan;
 			$idsatuan = $_POST["idsatuan"][$key];
 			$dis1 = $_POST["diskon1"][$key];
 			$dis2 = $_POST["diskon2"][$key];
@@ -28,7 +44,7 @@ if (isset($_POST['lunas'])) {
 			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
 			";
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-			tambahStok($sampah,$jumlah);
+			tambahStok($sampah,$jumlahBarangReal);
 			ubahHargaBarang($sampah, $harga);
 		}
 	}else{
@@ -143,7 +159,7 @@ if (isset($_POST['lunas'])) {
 // 		}
 
 // 	}
-	
+
 // } else {
 // 	if (isset($_POST['ppn'])) {
 // 		$status = "0";
@@ -188,9 +204,9 @@ if (isset($_POST['lunas'])) {
 // }
 
 if (!$transaksi) {
-		echo "Gagal";
-	}else{
-		echo "Sukses";
-	}
+	echo "Gagal";
+}else{
+	echo "Sukses";
+}
 
 ?>
