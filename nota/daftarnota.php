@@ -99,6 +99,7 @@ if(isset($_GET['cari'])){
                                             <th class="text-center">Tanggal</th>
                                             <th class="text-center" colspan="2" width="5%">Jumlah</th>
                                             <th class="text-center">Foto</th>
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Detail</th>
                                         </tr>
                                     </thead>
@@ -111,6 +112,17 @@ if(isset($_GET['cari'])){
                                                 <td class="text-right"><strong>Rp.</strong></td>
                                                 <td class="text-right"><strong><?= rupiahTanpaRp(($data['jumlah'])+($data['jumlah']*$data['ppn']/100)) ?></strong></td>
                                                 <td class="text-center"><strong>gambar</strong></td>
+
+                                                 <?php 
+                                                if ($data['status']==1) { ?>
+                                                    <td class="text-center" style="background-color: #0A9E00; color:white;"><strong>Lunas</strong></td>
+                                                <?php }else{?>
+                                                    <td class="text-center" style="background-color: #FF1C1C; color:white;"><strong>Hutang</strong></td>
+                                                <?php }
+                                                ?>
+
+                                                
+
                                                 <td class="text-center" style="font-size: 18px"><a href="<?= url('nota/detailnota.php?idnota='.$data['idnota'].'')?>"><strong>Lihat </strong><i class="fas fa-arrow-right"></i></td>
                                             </tr>
                                             

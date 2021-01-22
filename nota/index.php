@@ -1,13 +1,22 @@
 <?php 
 $judul = "Nota";
 include "../config/config.php";
+// $databarang = query("
+//     SELECT  tbsuplier.namasuplier as nama, SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlah FROM tbtransaksi
+//     INNER JOIN tbdetailtransaksi
+//     on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
+//     INNER JOIN tbsuplier
+//     ON tbtransaksi.idsuplier = tbsuplier.idsuplier
+//     WHERE tbtransaksi.tipetransaksi = 'In'
+//     GROUP BY tbsuplier.namasuplier");
 $databarang = query("
-    SELECT  tbsuplier.namasuplier as nama, SUM(tbdetailtransaksi.hargabeli*tbdetailtransaksi.jumlahbarang) as jumlah FROM tbtransaksi
+    SELECT  tbsuplier.namasuplier as nama, SUM((((tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100)) - (tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100))*tbdetailtransaksi.diskon2/100))*tbdetailtransaksi.jumlahbarang) as jumlah FROM tbtransaksi
     INNER JOIN tbdetailtransaksi
     on tbtransaksi.idtransaksi = tbdetailtransaksi.idtransaksi
     INNER JOIN tbsuplier
     ON tbtransaksi.idsuplier = tbsuplier.idsuplier
     WHERE tbtransaksi.tipetransaksi = 'In'
+    AND tbtransaksi.status='0'
     GROUP BY tbsuplier.namasuplier");
 
 if(isset($_GET['cari'])){
