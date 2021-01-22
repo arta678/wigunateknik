@@ -21,27 +21,29 @@ if (isset($_POST['lunas'])) {
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
 
 			// proses pembagian harga 
-
-
-
 			$sqlStok = "
 			SELECT isisatuan as isi FROM tbsatuan
 			WHERE idsatuan = '".$_POST["idsatuan"][$key]."'
 			";
 			$hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
 			$isisatuan =  $hasil["isi"];
-
+			$dis1 = $_POST["diskon1"][$key];
+			$dis2 = $_POST["diskon2"][$key];
+			
 			$hargaBarangSatuan = $_POST["harga"][$key];
 			$harga = $hargaBarangSatuan/$isisatuan;
+
+			$diskon = $harga-($harga*$dis1/100);
+			$diskon = $diskon-($diskon*$dis2/100);
+			$harga = $diskon;
 
 			$jumlah = $_POST["jumlah"][$key];
 			$jumlahBarangReal = $jumlah*$isisatuan;
 			$idsatuan = $_POST["idsatuan"][$key];
-			$dis1 = $_POST["diskon1"][$key];
-			$dis2 = $_POST["diskon2"][$key];
+			
 			$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 			VALUES
-			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
+			(null,'$idtransaksi','$sampah','$hargaBarangSatuan','$jumlah','$idsatuan','$dis1','$dis2')
 			";
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
 			tambahStok($sampah,$jumlahBarangReal);
@@ -55,17 +57,33 @@ if (isset($_POST['lunas'])) {
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
-			$jumlah = $_POST["jumlah"][$key];
-			$harga = $_POST["harga"][$key];
-			$idsatuan = $_POST["idsatuan"][$key];
+			// proses pembagian harga 
+			$sqlStok = "
+			SELECT isisatuan as isi FROM tbsatuan
+			WHERE idsatuan = '".$_POST["idsatuan"][$key]."'
+			";
+			$hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+			$isisatuan =  $hasil["isi"];
 			$dis1 = $_POST["diskon1"][$key];
 			$dis2 = $_POST["diskon2"][$key];
+			
+			$hargaBarangSatuan = $_POST["harga"][$key];
+			$harga = $hargaBarangSatuan/$isisatuan;
+
+			$diskon = $harga-($harga*$dis1/100);
+			$diskon = $diskon-($diskon*$dis2/100);
+			$harga = $diskon;
+
+			$jumlah = $_POST["jumlah"][$key];
+			$jumlahBarangReal = $jumlah*$isisatuan;
+			$idsatuan = $_POST["idsatuan"][$key];
+			
 			$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 			VALUES
-			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
+			(null,'$idtransaksi','$sampah','$hargaBarangSatuan','$jumlah','$idsatuan','$dis1','$dis2')
 			";
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-			tambahStok($sampah,$jumlah);
+			tambahStok($sampah,$jumlahBarangReal);
 			ubahHargaBarang($sampah, $harga);
 		}
 
@@ -80,17 +98,33 @@ if (isset($_POST['lunas'])) {
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
-			$jumlah = $_POST["jumlah"][$key];
-			$harga = $_POST["harga"][$key];
-			$idsatuan = $_POST["idsatuan"][$key];
+			// proses pembagian harga 
+			$sqlStok = "
+			SELECT isisatuan as isi FROM tbsatuan
+			WHERE idsatuan = '".$_POST["idsatuan"][$key]."'
+			";
+			$hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+			$isisatuan =  $hasil["isi"];
 			$dis1 = $_POST["diskon1"][$key];
 			$dis2 = $_POST["diskon2"][$key];
+			
+			$hargaBarangSatuan = $_POST["harga"][$key];
+			$harga = $hargaBarangSatuan/$isisatuan;
+
+			$diskon = $harga-($harga*$dis1/100);
+			$diskon = $diskon-($diskon*$dis2/100);
+			$harga = $diskon;
+
+			$jumlah = $_POST["jumlah"][$key];
+			$jumlahBarangReal = $jumlah*$isisatuan;
+			$idsatuan = $_POST["idsatuan"][$key];
+			
 			$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 			VALUES
-			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
+			(null,'$idtransaksi','$sampah','$hargaBarangSatuan','$jumlah','$idsatuan','$dis1','$dis2')
 			";
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-			tambahStok($sampah,$jumlah);
+			tambahStok($sampah,$jumlahBarangReal);
 			ubahHargaBarang($sampah, $harga);
 		}
 	}else{
@@ -101,17 +135,33 @@ if (isset($_POST['lunas'])) {
 		('$idtransaksi', '$tanggal', '$tipetransaksi','$status',null,'$ppn',null,'$supplier')";
 		$transaksi = mysqli_query($conn, $sqlTransaksi);
 		foreach ($_POST["idbarang"] as  $key => $sampah) {
-			$jumlah = $_POST["jumlah"][$key];
-			$harga = $_POST["harga"][$key];
-			$idsatuan = $_POST["idsatuan"][$key];
+			// proses pembagian harga 
+			$sqlStok = "
+			SELECT isisatuan as isi FROM tbsatuan
+			WHERE idsatuan = '".$_POST["idsatuan"][$key]."'
+			";
+			$hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+			$isisatuan =  $hasil["isi"];
 			$dis1 = $_POST["diskon1"][$key];
 			$dis2 = $_POST["diskon2"][$key];
+			
+			$hargaBarangSatuan = $_POST["harga"][$key];
+			$harga = $hargaBarangSatuan/$isisatuan;
+
+			$diskon = $harga-($harga*$dis1/100);
+			$diskon = $diskon-($diskon*$dis2/100);
+			$harga = $diskon;
+
+			$jumlah = $_POST["jumlah"][$key];
+			$jumlahBarangReal = $jumlah*$isisatuan;
+			$idsatuan = $_POST["idsatuan"][$key];
+			
 			$query_detail_transaksi = " INSERT INTO tbdetailtransaksi
 			VALUES
-			(null,'$idtransaksi','$sampah','$harga','$jumlah','$idsatuan','$dis1','$dis2')
+			(null,'$idtransaksi','$sampah','$hargaBarangSatuan','$jumlah','$idsatuan','$dis1','$dis2')
 			";
 			$berhasil =  mysqli_query($conn,$query_detail_transaksi) or die ;
-			tambahStok($sampah,$jumlah);
+			tambahStok($sampah,$jumlahBarangReal);
 			ubahHargaBarang($sampah, $harga);
 		}
 	}

@@ -95,13 +95,16 @@ if(isset($_GET['cari'])){
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h3><strong><?= $databarang[0]['namasupplier']; ?> (<?= $databarang[0]['tanggal']; ?>)</strong> 
+                            <h3><strong><?= $databarang[0]['namasupplier']; ?></strong> 
+
                                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahBarangMasuk" title="Tambah Data"><i class="fa far fa-plus fa-lg"></i></button>
                                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEditTanggalNota" title="Tambah Data"><i class="fa far fa-edit fa-lg"></i></button>
                                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahPembayaran" title="Tambah Data"><i class="fas fa-dollar-sign fa-lg"></i></button>
                                 <button type="button" class="btn btn-light"  title="Lihat Gambar"><i class="fas fa-camera-retro fa-lg"></i></button>
 
                             </h3>
+                            <h6><strong><?= $databarang[0]['tanggal']; ?></strong></h6>
+                            
 
                             <div class="table-responsive kontentabel">
 

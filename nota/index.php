@@ -46,7 +46,7 @@ if(isset($_GET['cari'])){
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h3><strong>Daftar Nota</strong></h3>
+                            <h3><strong>Nota Supplier</strong></h3>
                             <div class="table-responsive kontentabel">
                                 <table class="table  table-bordered table-striped" id="tabelbarang">
                                     <thead style="background-color: #00794d; color: white;">
