@@ -73,6 +73,11 @@ if(isset($_GET['cari'])){
                             </div>
                             <div class="form-group databarang">
                             </div>
+                             <div class="form-group ">
+                                <label for="jumlah">Harga Baru</label>
+                                <input type="text" class="form-control" name="modal" id="modal"   placeholder="Harga Baru">
+                                
+                            </div>
                             <div class="form-group">
                                 <label for="idsatuan">Satuan</label>
                                 <select class="form-control col-md-12" name="idsatuan" required  id="idsatuan">
@@ -86,11 +91,7 @@ if(isset($_GET['cari'])){
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group ">
-                                <label for="jumlah">Harga Baru</label>
-                                <input type="text" class="form-control" name="modal" id="modal"   placeholder="Harga Baru">
-                                
-                            </div>
+                           
                             <div class="form-group " id="checkboxViewDiskon">
                                 <input type="checkbox" name="tampilkanDiskon" id="tampilkanDiskon">
                                 <label for="tampilkanDiskon">Discount</label>

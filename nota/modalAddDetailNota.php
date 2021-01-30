@@ -6,6 +6,10 @@
       <div class="modal-body" style="background-color: #00794d; color: white" >
         <div class="row" style="font-weight: bold;">
           <div class="col-lg-12">
+            <div class="form-group">
+              <h5 for="jumlahbarang"><strong>Qty</strong></h5>
+              <input style=" color: black; font-size: 18px;" type="number" class="form-control"  id="jumlahbarang" name="jumlahbarang" required form="formAddDetailNota">
+            </div>
 
             <div class="form-group databarang"></div>
 
@@ -28,10 +32,7 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <h5 for="jumlahbarang"><strong>Jumlah Barang</strong></h5>
-              <input style=" color: black; font-size: 18px;" type="number" class="form-control"  id="jumlahbarang" name="jumlahbarang" required form="formAddDetailNota">
-            </div>
+            
             <div class="form-group">
               <label for="diskon1">Diskon 1</label>
               <input type="input" class="form-control" name="diskon1" id="diskon1" value="0" form="formAddDetailNota">

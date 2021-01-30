@@ -91,7 +91,7 @@ if(isset($_GET['cari'])){
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-10">
 
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -119,7 +119,7 @@ if(isset($_GET['cari'])){
                                             <th class="text-right">Harga</th>
                                             <th class="text-right" width="3%">Dis1</th>
                                             <th class="text-right" width="3%">Dis2</th>
-                                            <th class="text-right" width="200px" >Jumlah</th>
+                                            <th class="text-right" width="150px" >Jumlah</th>
                                             <th class="text-left" width="10px"></th>
                                         </tr>
                                     </thead>
@@ -209,6 +209,17 @@ if(isset($_GET['cari'])){
             // focus pada modal tambahpembayaran
             $('#modalTambahPembayaran').on('shown.bs.modal', function() {
                 $('#jumlahpembayaran').focus();
+            });
+            $('#modalTambahBarangMasuk').on('shown.bs.modal', function() {
+                $('#jumlahbarang').focus();
+            });
+            $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
+                $(this).closest(".select2-container").siblings('select:enabled').select2('open');
+            });
+            $('select.select2').on('select2:closing', function (e) {
+                $(e.target).data("select2").$selection.one('focus focusin', function (e) {
+                    e.stopPropagation();
+                });
             });
              $('#idsatuan').select2({
                 theme: "bootstrap",
