@@ -7,7 +7,20 @@
         <div class="row" style="font-weight: bold;">
           <div class="col-lg-12">
 
-            <div class="form-group datasupplier"></div>
+            <!-- <div class="form-group datasupplier"></div> -->
+            <div class="form-grup">
+              <h5 for="suplier"><strong>Supplier</strong></h5>
+              <select  class="form-control" data-live-search="false" data-size="5" name="suplier"  id="suplier" title="Pilih Supplier" form="formedittanggal">
+
+                <?php 
+                $input = "SELECT * FROM tbsuplier";
+                $hasil = mysqli_query($conn, $input);
+                while ( $baris = mysqli_fetch_array($hasil) ) { ?>
+                  <option <?php if($databarang[0]['namasupplier'] == $baris['namasuplier'])  echo 'selected'; ?> value="<?= $baris['idsuplier'] ?>" ><?= $baris['namasuplier']; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+
 
             <div class="form-group">
               <h5 for="hargabeli"><strong>Tanggal Bayar</strong></h5>
@@ -17,22 +30,10 @@
 
             </div>
             <div class="form-group">
-              <h5 for="Diskon1"><strong>Diskon 1</strong></h5>
-              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="number" class="form-control"  id="Diskon1"  name="Diskon1" required form="formedittanggal" value="<?= $diskon1 ?>">
-            </div>
-            <div class="form-group">
-              <h5 for="Diskon2"><strong>Diskon 2</strong></h5>
-              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="number" class="form-control"  id="Diskon2" name="Diskon2" required form="formedittanggal" value="<?= $diskon2 ?>">
-            </div>
-            <div class="form-group">
-              <h5 for="Diskon3"><strong>Diskon 3</strong></h5>
-              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="number" class="form-control"  id="Diskon3" name="Diskon3" required form="formedittanggal" value="<?= $diskon3 ?>">
-            </div>
-            <div class="form-group">
               <h5 for="Diskon3"><strong>PPN <input type="checkbox" name="lunas" id="lunas" form="formaddbarangmasuk"></strong></h5>
             </div>
             <hr>
-            <button type="submit" class="btn btn-success" form="formedittanggal">Simpan</button>
+            <button type="submit" class="btn btn-danger" form="formedittanggal">Simpan</button>
           </div>
         </div>
       </div>

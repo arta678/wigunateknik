@@ -4,7 +4,7 @@ $judul = "Dashboard";
 include "../config/config.php";
 
 $databarang = query("select * from tbbarang INNER JOIN tbkategori
-    ON tbbarang.kategori = tbkategori.idkategori order by idbarang desc limit 10");
+    ON tbbarang.kategori = tbkategori.idkategori order by idbarang desc limit 20");
 
 $sql  = "SELECT COUNT(*) AS jumlah FROM tbbarang";
 $jumlahBarang = mysqli_fetch_assoc(mysqli_query($conn,$sql));
@@ -13,7 +13,7 @@ $cari = "cari";
 if(isset($_GET['cari'])){
     $cari = $_GET['cari'];
     $databarang = query("select * from tbbarang INNER JOIN tbkategori
-        ON tbbarang.kategori = tbkategori.idkategori where namabarang like '%".$cari."%' OR namakategori like '%".$cari."%'");
+        ON tbbarang.kategori = tbkategori.idkategori where namabarang like '%".$cari."%' OR namakategori like '%".$cari."%' order by namabarang asc");
 }else{
     $cari = "nol";
 }

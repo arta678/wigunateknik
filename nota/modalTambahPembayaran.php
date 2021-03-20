@@ -15,7 +15,7 @@
 
             <div class="form-group">
               <h5 for="sisapembayaran"><strong>Sisa Pembayaran</strong></h5>
-              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="text" class="form-control"  id="sisapembayaran" name="sisapembayaran" required  value="<?= rupiahTanpaRp($sisapembayaran) ?>">  
+              <input style="background-color: #CBCBCB; color: black; font-size: 18px;" type="text" class="form-control"  id="sisapembayaran" name="sisapembayaran" required >  
             </div>
 
             <div class="form-group">
@@ -39,7 +39,4 @@
   </div>
 </div>
 <script type="text/javascript">
-  function functionSalin() {
-      $("#jumlahpembayaran").val('<?= rupiahTanpaRp($sisapembayaran) ?>');        
-  }
 </script>

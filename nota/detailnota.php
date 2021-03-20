@@ -15,6 +15,7 @@ $databarang = query("
     tbdetailtransaksi.diskon2 as diskon2,
     (((tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100)) - (tbdetailtransaksi.hargabeli-(tbdetailtransaksi.hargabeli*tbdetailtransaksi.diskon1/100))*tbdetailtransaksi.diskon2/100))*tbdetailtransaksi.jumlahbarang as total,
     tbsatuan.namasatuan as namasatuan,
+    tbsatuan.idsatuan as idsatuan,
     tbsuplier.namasuplier as namasupplier
     FROM tbtransaksi
     INNER JOIN tbdetailtransaksi
@@ -98,8 +99,8 @@ if(isset($_GET['cari'])){
                             <h3><strong><?= $databarang[0]['namasupplier']; ?></strong> 
 
                                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahBarangMasuk" title="Tambah Data"><i class="fa far fa-plus fa-lg"></i></button>
-                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEditTanggalNota" title="Tambah Data"><i class="fa far fa-edit fa-lg"></i></button>
-                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahPembayaran" title="Tambah Data"><i class="fas fa-dollar-sign fa-lg"></i></button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEditTanggalNota" title="Edit Data"><i class="fa far fa-edit fa-lg"></i></button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalTambahPembayaran" title="Tambah Pembayaran"><i class="fas fa-dollar-sign fa-lg"></i></button>
                                 <button type="button" class="btn btn-light"  title="Lihat Gambar"><i class="fas fa-camera-retro fa-lg"></i></button>
 
                             </h3>
@@ -131,7 +132,14 @@ if(isset($_GET['cari'])){
 
                                                 <td ><a href="<?= url('barang/?lihat='.$data["namabarang"].'')?>"><strong><?= $data['namabarang'] ?></strong>
                                                 </a></td>
-                                                <td class="text-left"><strong><?= $data['jumlah'] ?></strong></td>
+                                                <td class="text-left"><strong>
+                                                    <?php $number = 1;
+if ($data['jumlah']<1) {
+    echo number_format($data['jumlah'],1,",",",");
+}else{
+    echo number_format($data['jumlah']);
+} ?>
+                                                    </strong></td>
                                                 <td class="text-left"><strong><?= $data['namasatuan']?></strong></td>
                                                 <!-- <td class="text-left"><strong><?= $data['namakategori'] ?></strong></td> -->
                                                 <td class="text-right"><strong><?= rupiahTanpaRp($data['harga']) ?></strong></td>
@@ -221,20 +229,34 @@ if(isset($_GET['cari'])){
                     e.stopPropagation();
                 });
             });
-             $('#idsatuan').select2({
+
+            $('#idsatuan').select2({
                 theme: "bootstrap",
                 width: '100%',
                 placeholder: 'Pilih Satuan',
                 matcher: matchCustom
             });
 
+            $('#ideditsatuan').select2({
+                theme: "bootstrap",
+                width: '100%',
+                placeholder: 'Satuan',
+                matcher: matchCustom
+            });
+            $('#suplier').select2({
+                placeholder: 'Pilih Barang',
+                theme: "bootstrap",
+                width: '100%',
+                allowClear: true,
+                matcher: matchCustom
+            });
+
+
 
             loadBarang();
             function loadBarang(){
                 var data = "data/barang.php";
                 $('.databarang').load(data);
-                var datasuplier = "data/suplier.php";
-                $('.datasupplier').load(datasuplier);
             };
 
             $("#formAddDetailNota").submit(function(e) {
@@ -301,7 +323,7 @@ if(isset($_GET['cari'])){
                 } else {
                 }
             });
-             function matchCustom(params, data) {
+            function matchCustom(params, data) {
                 if ($.trim(params.term) ===   '') {
                     return data;
                 }

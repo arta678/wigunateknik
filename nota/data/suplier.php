@@ -1,5 +1,13 @@
 <?php 
 include '../../config/config.php';
+$databarang = query("
+    SELECT
+    tbsuplier.namasuplier as namasuplier
+    
+    FROM tbsuplier
+    INNER JOIN tbtransaksi
+    on tbsuplier.idsuplier = tbtransaksi.idsuplier
+    WHERE  tbtransaksi.idtransaksi ='".$_GET['idnota']."'");
 ?>
 <link href="../asset/plugins/select2/css/select2.min.css" rel="stylesheet" > 
 <link href="../asset/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
@@ -19,7 +27,9 @@ include '../../config/config.php';
   </select> -->
 
 
-  <select  class="form-control" data-live-search="false" data-size="5" name="suplier"  id="suplier" title="Pilih Supplier" form="formedittanggal">
+
+
+   <select  class="form-control" data-live-search="false" data-size="5" name="suplier"  id="suplier" title="Pilih Supplier" form="formedittanggal">
     <?php 
     $input = "SELECT * FROM tbsuplier";
     $hasil = mysqli_query($conn, $input);
