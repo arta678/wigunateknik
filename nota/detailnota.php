@@ -133,12 +133,12 @@ if(isset($_GET['cari'])){
                                                 <td ><a href="<?= url('barang/?lihat='.$data["namabarang"].'')?>"><strong><?= $data['namabarang'] ?></strong>
                                                 </a></td>
                                                 <td class="text-left"><strong>
-                                                    <?php $number = 1;
-if ($data['jumlah']<1) {
-    echo number_format($data['jumlah'],1,",",",");
-}else{
-    echo number_format($data['jumlah']);
-} ?>
+                                                    <?php
+                                                    if (is_float($data['jumlah'])==true) {
+                                                        echo number_format($data['jumlah'],1,",",",");
+                                                    }else{
+                                                        echo number_format($data['jumlah']);
+                                                    } ?>
                                                     </strong></td>
                                                 <td class="text-left"><strong><?= $data['namasatuan']?></strong></td>
                                                 <!-- <td class="text-left"><strong><?= $data['namakategori'] ?></strong></td> -->

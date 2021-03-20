@@ -8,6 +8,7 @@ $diskon2 = $_POST['diskon2'];
 $harga = hapusTitik($_POST['harga']);
 $iddetailnota =$_POST['iddetailnota'];
 $idnota =$_POST['idnota'];
+$ideditsatuan =$_POST['ideditsatuan'];
 
 ubahStokBarang($idbarang, $jumlah, $iddetailnota);
 ubahHargaBarang($idbarang, $harga);
@@ -15,6 +16,7 @@ ubahHargaBarang($idbarang, $harga);
 $sql = "UPDATE tbdetailtransaksi SET
 				hargabeli = '$hargabeli',
 				jumlahbarang = '$jumlah',
+				idsatuan = '$ideditsatuan',
 				diskon1 ='$diskon1',
 				diskon2 ='$diskon2'
 			  WHERE iddetailtransksi = '$iddetailnota'

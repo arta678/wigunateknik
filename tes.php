@@ -1,11 +1,9 @@
 <?php 
-include_once 'config/config.php';
+$a = is_float(1000.0);
 
-$number = 1;
-if ($number<1) {
-    echo number_format($number,1,",",",");
-}else{
-    echo number_format($number);
+if ($a == false) {
+	echo "benar";
+}else {
+	echo "salah";
 }
-
  ?>

@@ -22,7 +22,8 @@ if(isset($_GET['cari'])){
                         </div>
                         <div class="form-group">
                             <h5 for="hargabeli"><strong>Qty</strong></h5>
-                            <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="jumlah" name="jumlah" value="<?= $data['jumlah']?>" required form="formEditDetailNota">
+                            
+                            <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="jumlah" name="jumlah" value="<?= number_format($data['jumlah'])?>" required form="formEditDetailNota">
                         </div>
                         <div class="form-group">
                             <h5 for="harga"><strong>Harga Modal</strong></h5>
@@ -30,7 +31,7 @@ if(isset($_GET['cari'])){
                         </div>
                         <div class="form-group">
                           <label for="idsatuan">Satuan</label>
-                          <select class="form-control col-md-12" name="ideditsatuan" required  id="ideditsatuan" form="formAddDetailNota">
+                          <select class="form-control col-md-12" name="ideditsatuan[]" required  id="ideditsatuan" form="formAddDetailNota">
                             <?php 
                             $input = "SELECT * FROM tbsatuan ";
                             $hasil = mysqli_query($conn, $input);
@@ -38,7 +39,7 @@ if(isset($_GET['cari'])){
 
                                 <option <?php if($data['idsatuan'] == $row['idsatuan'])  echo 'selected'; ?> value="<?= $row['idsatuan'] ?>" ><?= $row['namasatuan']; ?></option>
 
-                              <option   value="<?= $row['idsatuan'] ?>" data-lookup="<?= $row['namasatuan']; ?>" data-namasatuan="<?=  $row['namasatuan']; ?>"><?= $row['namasatuan']; ?></option>
+                            <!--   <option   value="<?= $row['idsatuan'] ?>" data-lookup="<?= $row['namasatuan']; ?>" data-namasatuan="<?=  $row['namasatuan']; ?>"><?= $row['namasatuan']; ?></option> -->
 
 
                             <?php 
@@ -54,11 +55,11 @@ if(isset($_GET['cari'])){
                   </div>
                   <div class="form-group">
                     <h5 for="hargabeli"><strong>Diskon 1</strong></h5>
-                    <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="diskon1" name="diskon1" value="<?= $data['diskon1']?>" required form="formEditDetailNota">
+                    <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="diskon1" name="diskon1" value="<?= number_format($data['diskon1'])?>" required form="formEditDetailNota">
                 </div>
                 <div class="form-group">
                     <h5 for="hargabeli"><strong>Diskon 2</strong></h5>
-                    <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="diskon2" name="diskon2" value="<?= $data['diskon2']?>" required form="formEditDetailNota">
+                    <input style="background-color: #CBCBCB; color: black; font-size: 18px;" class="form-control" placeholder="Harga Beli" id="diskon2" name="diskon2" value="<?= number_format($data['diskon2'])?>" required form="formEditDetailNota">
                 </div>
 
 
