@@ -14,8 +14,6 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </span>
-                
-
             </div>
 
         </form>
@@ -41,7 +39,7 @@
                 <a href="<?= url('masuk')?>"><i class="fa fas fa-truck fa-fw" style="font-size: 25px;"></i> <strong><u>Barang Masuk</u></strong></a>
             </li>
             <li>
-                <a href="<?= url('transaksi')?>"><i class="fa fas fa-history fa-fw" style="font-size: 25px;"></i> <strong>Transaksi</strong></a>
+                <a href="<?= url('transaksi')?>"><i class="fa fas fa-history fa-fw" style="font-size: 25px;"></i> <strong>Daftar Transaksi</strong></a>
             </li>
              <!-- <li>
                 <a href="#"><i class="fa fas fa-chart-pie fa-fw" style="font-size: 25px;"></i> <strong>Laporan</strong></a>

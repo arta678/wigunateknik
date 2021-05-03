@@ -45,12 +45,6 @@ if(isset($_GET['cari'])){
                             <?php 
                           }
                           ?>
-                                        
-                                    
-
-
-
-
                       </select>
                   </div>
                   <div class="form-group">

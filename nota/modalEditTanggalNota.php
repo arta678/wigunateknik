@@ -30,7 +30,15 @@
 
             </div>
             <div class="form-group">
-              <h5 for="Diskon3"><strong>PPN <input type="checkbox" name="lunas" id="lunas" form="formaddbarangmasuk"></strong></h5>
+              <!-- <h5 for="Diskon3"><strong>PPN <input type="checkbox" name="ppn" id="ppn" checked form="formedittanggal"></strong></h5> -->
+
+              <?php 
+                $input = "SELECT * FROM tbtransaksi WHERE idtransaksi = '".$_GET['idnota']."'";
+                $hasil = mysqli_query($conn, $input);
+                while ( $baris = mysqli_fetch_array($hasil) ) { ?>
+                  <h5 for="ppn"><strong>PPN <input <?php if($baris['ppn'] == '10')  echo 'checked'; ?> type="checkbox" name="ppn" id="ppn"  form="formedittanggal"></strong></h5>
+                <?php } ?>
+
             </div>
             <hr>
             <button type="submit" class="btn btn-danger" form="formedittanggal">Simpan</button>
