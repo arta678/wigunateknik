@@ -20,25 +20,40 @@ include '../../config/config.php';
 
 $idsuplier = $_POST['suplier'];
 $tanggal = $_POST['tanggal'];
-// $ppn = $_POST['ppn'];
 $idnota = $_POST['idnota'];
 
 if(isset($_POST['ppn'])){
-	$sql = "UPDATE tbtransaksi SET
+	$sqlPPN = "UPDATE tbtransaksi SET
 				tanggal = '$tanggal',
 				ppn = '10',
 				idsuplier = '$idsuplier'
 			  WHERE idtransaksi = '$idnota'
 			";
 }else{
-	$sql = "UPDATE tbtransaksi SET
+	$sqlPPN = "UPDATE tbtransaksi SET
 				tanggal = '$tanggal',
 				ppn = '0',
 				idsuplier = '$idsuplier'
 			  WHERE idtransaksi = '$idnota'
 			";
 }
-$berhasil = mysqli_query($conn, $sql);
+if(isset($_POST['status'])){
+	$sqlStatus = "UPDATE tbtransaksi SET
+				tanggal = '$tanggal',
+				status = '1',
+				idsuplier = '$idsuplier'
+			  WHERE idtransaksi = '$idnota'
+			";
+}else{
+	$sqlStatus = "UPDATE tbtransaksi SET
+				tanggal = '$tanggal',
+				status = '0',
+				idsuplier = '$idsuplier'
+			  WHERE idtransaksi = '$idnota'
+			";
+}
+$berhasil = mysqli_query($conn, $sqlPPN);
+$berhasil = mysqli_query($conn, $sqlStatus);
 
 // if (!$berhasil) {
 // 	header("location:".url('nota/detailnota.php')."?idnota=".$idnota."&edit=0");

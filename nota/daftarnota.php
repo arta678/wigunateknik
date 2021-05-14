@@ -83,7 +83,7 @@ if(isset($_GET['cari'])){
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
 
                     <div class="panel panel-default">
 

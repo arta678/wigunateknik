@@ -92,7 +92,7 @@ if(isset($_GET['cari'])){
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
 
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -104,7 +104,7 @@ if(isset($_GET['cari'])){
                                 <button type="button" class="btn btn-light"  title="Lihat Gambar"><i class="fas fa-camera-retro fa-lg"></i></button>
 
                             </h3>
-                            <h6><strong><?= $databarang[0]['tanggal']; ?></strong></h6>
+                            <h3><strong><?= $databarang[0]['tanggal']; ?></strong></h3>
                             
 
                             <div class="table-responsive kontentabel">
