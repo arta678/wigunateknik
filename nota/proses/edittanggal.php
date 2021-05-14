@@ -60,4 +60,5 @@ $berhasil = mysqli_query($conn, $sqlStatus);
 // }else{
 // 	header("location:".url('nota/detailnota.php')."?idnota=".$idnota."&edit=1");
 // }
+
 ?>

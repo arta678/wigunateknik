@@ -31,7 +31,7 @@ if(isset($_GET['cari'])){
                         </div>
                         <div class="form-group">
                           <label for="idsatuan">Satuan</label>
-                          <select class="form-control col-md-12" name="ideditsatuan[]" required  id="ideditsatuan" form="formAddDetailNota">
+                          <select class="form-control col-md-12" name="ideditsatuan" required  id="ideditsatuan" form="formEditDetailNota">
                             <?php 
                             $input = "SELECT * FROM tbsatuan ";
                             $hasil = mysqli_query($conn, $input);
