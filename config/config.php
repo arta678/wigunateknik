@@ -181,6 +181,7 @@ function ubahStokBarang($idbarang,$jumlahBaru,$iddetailtransaksi){
   $jumlahbaru = $jumlahBaru;
 
   if ($jumlahlama > $jumlahbaru) {
+    // perlu ditambah perhitungan jumlah pada dus!
     $jumlah = $jumlahlama - $jumlahbaru;
     $stoklama = tampilkanStokLama($idbarang);
     $stokbaru = $stoklama-$jumlah;
