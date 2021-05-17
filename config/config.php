@@ -175,26 +175,34 @@ function tampilkanJumlahLama($iddetailtransaksi){
   return $jumlah;
 }
 
-function ubahStokBarang($idbarang,$jumlahBaru,$iddetailtransaksi){
+function ubahStokBarang($idbarang,$jumlahBaru,$iddetailtransaksi,$idsatuan){
   global $conn; 
   $jumlahlama = tampilkanJumlahLama($iddetailtransaksi);
   $jumlahbaru = $jumlahBaru;
 
   if ($jumlahlama > $jumlahbaru) {
     // perlu ditambah perhitungan jumlah pada dus!
+    $isiSatuan = tampilkanIsiSatuan($idsatuan);
     $jumlah = $jumlahlama - $jumlahbaru;
+    $jumlahPerkalianBaru = $jumlah*$isiSatuan;
+
     $stoklama = tampilkanStokLama($idbarang);
-    $stokbaru = $stoklama-$jumlah;
+    $stokbaru = $stoklama-$jumlahPerkalianBaru;
     $updateStok = "UPDATE tbbarang SET
     stokbarang = '".$stokbaru."'
     WHERE idbarang = '".$idbarang."'
     ";  
     mysqli_query($conn,$updateStok); 
+    
     return $stokbaru;
+
+
   }else{
+    $isiSatuan = tampilkanIsiSatuan($idsatuan);
     $jumlah = $jumlahbaru - $jumlahlama;
+    $jumlahPerkalianBaru = $jumlah*$isiSatuan;
     $stoklama = tampilkanStokLama($idbarang);
-    $stokbaru = $stoklama+$jumlah;
+    $stokbaru = $stoklama+$jumlahPerkalianBaru;
     $updateStok = "UPDATE tbbarang SET
     stokbarang = '".$stokbaru."'
     WHERE idbarang = '".$idbarang."'
@@ -217,6 +225,17 @@ function tampilkanStokLama($idbarang){
   return $jumlah;
 }
 
+
+function tampilkanIsiSatuan($idsatuan){
+  global $conn; 
+  $sqlStok = "
+  SELECT tbsatuan.isisatuan as satuan FROM tbsatuan
+  WHERE tbsatuan.idsatuan ='".$idsatuan."'
+  ";
+  $hasil = mysqli_fetch_assoc(mysqli_query($conn,$sqlStok));
+  $jumlah =  $hasil["satuan"];
+  return $jumlah;
+}
 
 
 

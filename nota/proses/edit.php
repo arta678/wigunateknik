@@ -10,7 +10,7 @@ $iddetailnota =$_POST['iddetailnota'];
 $idnota =$_POST['idnota'];
 $ideditsatuan =$_POST['ideditsatuan'];
 
-ubahStokBarang($idbarang, $jumlah, $iddetailnota);
+ubahStokBarang($idbarang, $jumlah, $iddetailnota, $ideditsatuan);
 ubahHargaBarang($idbarang, $harga);
 
 $sql = "UPDATE tbdetailtransaksi SET
