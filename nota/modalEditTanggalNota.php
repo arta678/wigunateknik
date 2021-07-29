@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <form role="form" method="POST" id="formedittanggal"></form>
-      <div class="modal-body" style="background-color: #E9904D; color: black" >
+      <div class="modal-body" style="background-color: orange; color: black" >
         <div class="row" style="font-weight: bold;">
           <div class="col-lg-12">
             <div class="form-group">
@@ -31,7 +31,7 @@
               $input = "SELECT * FROM tbtransaksi WHERE idtransaksi = '".$_GET['idnota']."'";
               $hasil = mysqli_query($conn, $input);
               while ( $baris = mysqli_fetch_array($hasil) ) { ?>
-                <h5 for="ppn"><strong>PPN  = <input <?php if($baris['ppn'] == '10')  echo 'checked'; ?> type="checkbox" name="ppn" id="ppn"  form="formedittanggal"></strong></h5>
+                <h5 for="ppn"><strong><input <?php if($baris['ppn'] == '10')  echo 'checked'; ?> type="checkbox" name="ppn" id="ppn"  form="formedittanggal"> PPN</strong></h5>
               <?php } ?>
             </div>
 
@@ -40,13 +40,13 @@
               $input = "SELECT * FROM tbtransaksi WHERE idtransaksi = '".$_GET['idnota']."'";
               $hasil = mysqli_query($conn, $input);
               while ( $baris = mysqli_fetch_array($hasil) ) { ?>
-                <h5 for="status"><strong>LUNAS =<input <?php if($baris['status'] == '1')  echo 'checked'; ?> type="checkbox" name="status" id="status"  form="formedittanggal"></strong></h5>
+                <h5 for="status"><strong><input <?php if($baris['status'] == '1')  echo 'checked'; ?> type="checkbox" name="status" id="status"  form="formedittanggal"> LUNAS</strong></h5>
               <?php } ?>
             </div>
+            <hr>
+            <button  type="submit" class="btn btn-danger" form="formedittanggal"><strong>Simpan</strong></button>
+            
 
-            <div class="modal-footer">
-              <button  type="submit" class="btn btn-danger" form="formedittanggal"><strong>Simpan</strong></button>
-            </div>
             
           </div>
         </div>

@@ -50,7 +50,8 @@ if(isset($_GET['cari'])){
                 <div class="col-lg-4 ">
                     <div class="panel panel-default ">
                         <div class="panel-body" style="background-color: #00794d; color: white">
-                            <div class="form-group ">
+
+                            <div class="form-group" >
                                 <label for="tanggal">Tanggal</label>
                                 <input type="date" class="form-control" name="tanggal" value="<?= date('Y-m-d') ?>" form="formaddbarangmasuk">
                             </div>
@@ -67,15 +68,21 @@ if(isset($_GET['cari'])){
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group ">
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
                                 <label for="jumlah">Qty</label>
                                 <input type="number" class="form-control" name="jumlah[]" onclick="this.select()" id="jumlah" onKeyUp="enableButtonTambah()" >
                             </div>
-                            <div class="form-group databarang">
+                            <div class="form-group databarang col-md-8">
                             </div>
-                             <div class="form-group ">
-                                <label for="jumlah">Harga Baru</label>
+                                
+                            </div>
+                            
+                            <div class="form-group ">
+                                <label for="modal">Harga Baru</label>
                                 <input type="text" class="form-control" name="modal" id="modal"   placeholder="Harga Baru">
+                                
                                 
                             </div>
                             <div class="form-group">
@@ -91,7 +98,7 @@ if(isset($_GET['cari'])){
                                     ?>
                                 </select>
                             </div>
-                           
+
                             <div class="form-group " id="checkboxViewDiskon">
                                 <input type="checkbox" name="tampilkanDiskon" id="tampilkanDiskon">
                                 <label for="tampilkanDiskon">Discount</label>
@@ -107,26 +114,27 @@ if(isset($_GET['cari'])){
                                     <input type="input" class="form-control" name="diskon2" id="diskon2" value="0" >
                                 </div>
                             </div>
+                            <div class="form-group ">
+                                <input type="checkbox" id="ppn" name="ppn" form="formaddbarangmasuk">
+                                <label for="ppn">PPN (10%)</label><br>
+                            </div>
+                            <div class="form-group " id="checkboxLunas">
+                                <input type="checkbox" name="lunas" id="lunas" form="formaddbarangmasuk">
+                                <label for="lunas" >Cash</label>
+                            </div>
 
 
                             <audio id="song">
                                 <source src="../asset/sound/popup.mp3" type="audio/mpeg">
                                 </audio>
                                 <div class="form-group " >
-                                    <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled style="font-size: 18px;"><strong>Input</strong>  <i class="fa fas fa-arrow-right fa-fw fa-lg"></i>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambah" title="Tambah Data" style="font-size: 18px;"><strong>Barang</strong> <i class="fa fas fa-plus fa-fw"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary" id="tambah" data-toggle="modal" data-target="#modalTambah" title="Tambah Data" style="font-size: 18px;"><strong>Barang</strong> <i class="fa fas fa-plus fa-fw"></i>
-                                    </button>    
+                                    <button type="button" class="btn btn-danger" id="tambah" onclick="popup()" disabled style="font-size: 18px;"><strong>Input</strong>  <i class="fa fas fa-arrow-right fa-fw fa-lg"></i>
+                                    </button>
+                                        
                                 </div>
-                                <div class="form-group ">
-                                    <input type="checkbox" id="ppn" name="ppn" form="formaddbarangmasuk">
-                                    <label for="ppn">PPN (10%)</label><br>
-                                </div>
-                                <div class="form-group " id="checkboxLunas">
-                                    <input type="checkbox" name="lunas" id="lunas" form="formaddbarangmasuk">
-                                    <label for="lunas" >LUNAS</label>
-                                    
-                                </div>
+
 
 
                                 <div class="form-group ">
@@ -210,9 +218,13 @@ if(isset($_GET['cari'])){
         }
 
         $(document).ready(function(){
+            
 
             loadBarang();
             loadDataKategori();
+
+            // $('#supplier').select2('open');
+
             $('#idsatuan').val(null).trigger('change');
             $(document).on('focus', '.select2-selection.select2-selection--single', function (e) {
                 $(this).closest(".select2-container").siblings('select:enabled').select2('open');

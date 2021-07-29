@@ -79,7 +79,7 @@ if(isset($_GET['cari'])){
                                     </audio>
                                     
                                     <div class="form-group ">
-                                        <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled >Tambah <i class="fa fas fa-arrow-right fa-fw"></i></button>
+                                        <button type="button" class="btn btn-success" id="tambah" onclick="popup()" disabled>Tambah <i class="fa fas fa-arrow-right fa-fw"></i></button>
                                     </div>
                                     
                                     <div class="form-group ">

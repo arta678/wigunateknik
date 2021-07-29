@@ -42,6 +42,8 @@
               <input type="input" class="form-control" name="diskon2" id="diskon2" value="0" form="formAddDetailNota">
             </div>
 
+            <hr>
+
 
             
             <button type="submit" class="btn btn-danger" form="formAddDetailNota">Simpan</button>
